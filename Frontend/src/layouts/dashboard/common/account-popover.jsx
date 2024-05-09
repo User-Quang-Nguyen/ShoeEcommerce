@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
 import Box from '@mui/material/Box';
 import Avatar from '@mui/material/Avatar';
@@ -9,7 +10,7 @@ import MenuItem from '@mui/material/MenuItem';
 import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
 
-import { account } from 'src/_mock/account';
+import { getAccount } from 'src/redux/action';
 
 // ----------------------------------------------------------------------
 
@@ -31,6 +32,16 @@ const MENU_OPTIONS = [
 // ----------------------------------------------------------------------
 
 export default function AccountPopover() {
+  const account = useSelector(state => state.account);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    const fetchData = async () => {
+      await dispatch(getAccount());
+    };
+
+    fetchData();
+  }, [dispatch]);
+  
   const [open, setOpen] = useState(null);
 
   const handleOpen = (event) => {
@@ -40,7 +51,7 @@ export default function AccountPopover() {
   const handleClose = () => {
     setOpen(null);
   };
-
+  
   return (
     <>
       <IconButton
@@ -56,15 +67,15 @@ export default function AccountPopover() {
         }}
       >
         <Avatar
-          src={account.photoURL}
-          alt={account.displayName}
-          sx={{
-            width: 36,
-            height: 36,
-            border: (theme) => `solid 2px ${theme.palette.background.default}`,
-          }}
+        src= '/assets/images/avatars/avatar_5.jpg'
+        alt={account.name}
+        sx={{
+          width: 36,
+          height: 36,
+          border: (theme) => `solid 2px ${theme.palette.background.default}`,
+        }}
         >
-          {account.displayName.charAt(0).toUpperCase()}
+          {account.name.charAt(0).toUpperCase()}
         </Avatar>
       </IconButton>
 
@@ -85,7 +96,7 @@ export default function AccountPopover() {
       >
         <Box sx={{ my: 1.5, px: 2 }}>
           <Typography variant="subtitle2" noWrap>
-            {account.displayName}
+            {account.name}
           </Typography>
           <Typography variant="body2" sx={{ color: 'text.secondary' }} noWrap>
             {account.email}

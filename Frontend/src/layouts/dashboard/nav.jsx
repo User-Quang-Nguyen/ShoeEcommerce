@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import PropTypes from 'prop-types';
+import { useSelector } from 'react-redux';
 
 import Box from '@mui/material/Box';
 import Stack from '@mui/material/Stack';
@@ -15,8 +16,6 @@ import { RouterLink } from 'src/routes/components';
 
 import { useResponsive } from 'src/hooks/use-responsive';
 
-import { account } from 'src/_mock/account';
-
 import Logo from 'src/components/logo';
 import Scrollbar from 'src/components/scrollbar';
 
@@ -27,7 +26,7 @@ import navConfig from './config-navigation';
 
 export default function Nav({ openNav, onCloseNav }) {
   const pathname = usePathname();
-
+  const account = useSelector(state => state.account);
   const upLg = useResponsive('up', 'lg');
 
   useEffect(() => {
@@ -50,13 +49,13 @@ export default function Nav({ openNav, onCloseNav }) {
         bgcolor: (theme) => alpha(theme.palette.grey[500], 0.12),
       }}
     >
-      <Avatar src={account.photoURL} alt="photoURL" />
+      <Avatar src='/assets/images/avatars/avatar_5.jpg' alt="photoURL" />
 
       <Box sx={{ ml: 2 }}>
-        <Typography variant="subtitle2">{account.displayName}</Typography>
+        <Typography variant="subtitle2">{account.name}</Typography>
 
         <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-          {account.role}
+          {account.role ? "ADMIN" : "USER"}
         </Typography>
       </Box>
     </Box>

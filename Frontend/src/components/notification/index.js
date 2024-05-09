@@ -1,0 +1,1 @@
+export { default as FilledAlerts } from './alter-view';

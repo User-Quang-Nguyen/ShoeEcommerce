@@ -15,9 +15,7 @@ import InputAdornment from '@mui/material/InputAdornment';
 
 import { useRouter } from 'src/routes/hooks';
 
-import { setAuthToken } from 'src/utils/jwt';
-
-import { login } from 'src/api/login';
+import { Signup } from 'src/api/signup';
 import { bgGradient } from 'src/theme/css';
 
 import Logo from 'src/components/logo';
@@ -27,23 +25,29 @@ import FilledAlerts from 'src/components/notification/alter-view';
 
 // ----------------------------------------------------------------------
 
-export default function LoginView() {
-  const [loginError, setLoginError] = useState(false);
-  useEffect(() => {
-    const timeout = setTimeout(() => {
-      setLoginError(false);
-    }, 3000);
-
-    return () => clearTimeout(timeout);
-  }, [loginError]);
-
+export default function SignupView() {
   const theme = useTheme();
 
   const router = useRouter();
 
-  const [showPassword, setShowPassword] = useState(false);
+  const [signupError, setSignupError] = useState(false);
+  const [isSignedUp, setIsSignedUp] = useState(false);
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      setSignupError(false);
+    }, 3000);
+
+    return () => clearTimeout(timeout);
+  }, [signupError]);
+
+  const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
+
+  const handleNameChange = (event) => {
+    setName(event.target.value);
+  }
 
   const handleEmailChange = (event) => {
     setEmail(event.target.value);
@@ -56,39 +60,34 @@ export default function LoginView() {
   const handleClick = async (event) => {
     event.preventDefault();
     const formData = {
-      "email": email,
-      "password": password
+        "name": name,
+        "email": email,
+        "password": password
     }
-    try{
-     const result = await login(formData); 
-
-     if(result.data.state === false){
-      setLoginError(true);
-     }
-
-     if(result.data.state === true){
-      const {token} = result.data;
-      console.log(result.data);
-      setAuthToken(token)
-
-      const {role} = result.data.result;
-      if(role === 1){
-        router.push('/');
-      }else if(role === 0){
-        router.push('/');
-      }else{
-        router.push('/404');
-      }
-    }
-
-    }catch(err){
-      console.log(err);
+    try {
+        const result = await Signup(formData);
+        if (result.data.state === true) {
+            setIsSignedUp(true);
+            setTimeout(() => {
+                router.push('/login');
+            }, 2000);
+        }else{
+            setSignupError(true);
+        }
+    } catch (error) {
+        setSignupError(true);
     }
   };
 
   const renderForm = (
     <>
       <Stack spacing={3}>
+        <TextField 
+          name="name" 
+          label="Full name" 
+          value={name} 
+          onChange={handleNameChange} />
+
         <TextField 
           name="email" 
           label="Email address" 
@@ -113,12 +112,6 @@ export default function LoginView() {
         />
       </Stack>
 
-      <Stack direction="row" alignItems="center" justifyContent="flex-end" sx={{ my: 3 }}>
-        <Link variant="subtitle2" underline="hover">
-          Forgot password?
-        </Link>
-      </Stack>
-
       <LoadingButton
         fullWidth
         size="large"
@@ -126,8 +119,9 @@ export default function LoginView() {
         variant="contained"
         color="inherit"
         onClick={handleClick}
+        sx = {{mt : 3}}
       >
-        Login
+        Sign Up
       </LoadingButton>
     </>
   );
@@ -158,15 +152,14 @@ export default function LoginView() {
             maxWidth: 420,
           }}
         >
-          <Typography variant="h4">Sign In</Typography>
+          <Typography variant="h4">Sign Up</Typography>
 
           <Typography variant="body2" sx={{ mt: 2, mb: 5 }}>
-            Don’t have an account?
-            <Link href = "/signup" variant="subtitle2" sx={{ ml: 0.5 }}>
-              Sign Up
+            Do you already have an account?
+            <Link href = "/login"  variant="subtitle2" sx={{ ml: 0.5 }}>
+              Sign In
             </Link>
           </Typography>
-
           <Stack direction="row" spacing={2}>
             <Button
               fullWidth
@@ -204,10 +197,12 @@ export default function LoginView() {
               OR
             </Typography>
           </Divider>
-
-          {loginError && (
-            <FilledAlerts severity="error" content="Đăng nhập thất bại"/>
+          {signupError && (
+            <FilledAlerts severity="error" content="Đăng ký thất bại"/>
           )}
+          {isSignedUp && (
+              <FilledAlerts severity="success" content="Đăng ký thành công"/>
+            )}
           {renderForm}
         </Card>
       </Stack>
