@@ -11,12 +11,13 @@ function registerUser(req, res) {
         }
         UserService.register(user, (err, result) => {
             if (err) {
+                console.log(err);
                 return res.status(400).json({ message: "Đăng ký thất bại!", state: false });
             }
-            res.status(200).json({ message: "Đăng ký thành công!", state: true });
+            return res.status(200).json({ message: "Đăng ký thành công!", state: true });
         })
     } catch (error) {
-        res.status(500).json({ message: "Có lỗi xảy ra" });
+        return res.status(500).json({ message: "Có lỗi xảy ra" });
     }
 }
 
@@ -35,19 +36,19 @@ async function login(req, res) {
                     "name": user.name,
                     "role": user.role
                 }
-                res.status(200).json({ message: "Đăng nhập thành công!", state: true, token: token, result: result });
+                return res.status(200).json({ message: "Đăng nhập thành công!", state: true, token: token, result: result });
             })
         } else {
             jwt.verifyToken(authHeader)
                 .then(result => {
-                    res.status(200).json({ message: "Đăng nhập thành công!", state: true, result: result })
+                    return res.status(200).json({ message: "Đăng nhập thành công!", state: true, result: result })
                 })
                 .catch(err => {
-                    res.status(400).json({ message: err.message, state: false });
+                    return res.status(400).json({ message: err.message, state: false });
                 })
         }
     } catch (error) {
-        res.status(500).json({ message: "Có lỗi xảy ra" });
+        return res.status(500).json({ message: "Có lỗi xảy ra" });
     }
 }
 module.exports = {

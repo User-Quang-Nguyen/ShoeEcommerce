@@ -93,7 +93,6 @@ async function checkQuantity(items) {
         const results = await Promise.all(items.map(async (item) => {
             return updateQuantityShoe(item.quantity, item.id);
         }));
-
         results.forEach((result, index) => {
             if (!result) {
                 const item = items[index];

@@ -18,14 +18,14 @@ async function login(formData, callback) {
                 return callback(new Error("Người dùng không tồn tại"));
             }
             try {
-                const isPasswordValid = await bcrypt.compare(formData.password, user[0].password);
+                const isPasswordValid = await bcrypt.compare(formData.password, user.password);
                 if (!isPasswordValid) {
                     return callback(new Error("Mật khẩu không chính xác"));
                 }
                 const result = {
-                    "id": user[0].id,
-                    "name": user[0].name,
-                    "role": user[0].role
+                    "id": user.id,
+                    "name": user.name,
+                    "role": user.role
                 };
                 callback(null, result);
             } catch (bcryptErr) {

@@ -8,7 +8,7 @@ async function getCartData(req, res) {
         const userid = infor.id;
         try {
             const result = await CartService.getCartData(userid);
-            return res.status(200).json([]);
+            return res.status(200).json(result);
         } catch (cartErr) {
             return res.status(500).json({ message: "Lỗi khi lấy dữ liệu giỏ hàng", status: false });
         }

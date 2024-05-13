@@ -40,7 +40,7 @@ async function getItems(startIndex, endIndex) {
         }));
         return itemsWithBrandNames;
     } catch (err) {
-        throw new Error("Có lỗi xảy ra");
+        throw new Error(err.message);
     }
 }
 
