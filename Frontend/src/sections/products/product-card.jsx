@@ -6,14 +6,39 @@ import Card from '@mui/material/Card';
 import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
-// eslint-disable-next-line import/no-extraneous-dependencies
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 
 import { fCurrency } from 'src/utils/format-number';
+import { addToCart } from 'src/api/cart';
+import { useEffect, useState } from 'react';
+import { Snackbar } from 'src/components/notification';
 
 // ----------------------------------------------------------------------
 
-export default function ShopProductCard({ product }) {
+export default function ShopProductCard({ product, id }) {
+  const [fail, setFail] = useState(false);
+  const [success, setSuccess] = useState(false);
+
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      setFail(false);
+      setSuccess(false);
+    }, 3000);
+
+    return () => clearTimeout(timeout);
+  }, [fail,success])
+
+  const onChange = async (event) => {
+    const formData = {
+      "shoeid": id,
+      "quantity": 1
+    }
+
+    const result = await addToCart(formData);
+    setSuccess(result.data.status);
+    setFail(!result.data.status);
+  }
+
   const renderImg = (
     <Box
       component="img"
@@ -46,6 +71,12 @@ export default function ShopProductCard({ product }) {
 
   return (
     <Card>
+      {success && (
+        <Snackbar message={"Thêm giỏ hàng thành công !!!"}/>
+      )}
+      {fail && (
+        <Snackbar message={"Thêm giỏ hàng thất bại!!!"}/>
+      )}
       <Box sx={{ pt: '100%', position: 'relative' }}>
         {renderImg}
       </Box>
@@ -56,8 +87,8 @@ export default function ShopProductCard({ product }) {
         </Link>
 
         <Stack direction="row" alignItems="center" justifyContent="space-between">
-          <IconButton color="primary" aria-label="add to shopping cart">
-            <AddShoppingCartIcon />
+          <IconButton color="primary" aria-label="add to shopping cart" onClick={onChange}>
+            <AddShoppingCartIcon onChange = {onChange}/>
           </IconButton>
           {renderPrice}
         </Stack>

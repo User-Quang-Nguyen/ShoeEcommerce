@@ -6,7 +6,6 @@ export const getAccount = () => async (dispatch) => {
     try {
         const response = await getUserInfor();
         const userData = response.data;
-        console.log(userData);
         dispatch({
             type: GET_ACCOUNT,
             payload: userData,

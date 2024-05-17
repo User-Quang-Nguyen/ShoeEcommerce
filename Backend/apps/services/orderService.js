@@ -114,7 +114,7 @@ async function order(userid, items) {
         await checkQuantity(items);
         const total = await calculate(items);
         const result = await addToOrderTable(userid, total);
-        const orderid = result.insertId;
+        const orderid = result.rows[0].id;
         items.map(async (item) => {
             await addToOrderDetailTable(orderid, item);
         })

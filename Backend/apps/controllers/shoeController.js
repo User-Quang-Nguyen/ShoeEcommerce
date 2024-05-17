@@ -3,7 +3,7 @@ const ShoeService = require("../services/shoeService");
 async function getItems(req, res) {
     try {
         const page = parseInt(req.query.page) || 1;
-        const pageSize = 10;
+        const pageSize = 12;
         const startIndex = 1 + pageSize * (page - 1);
         const endIndex = startIndex + pageSize - 1;
 

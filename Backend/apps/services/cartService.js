@@ -98,7 +98,7 @@ async function addItems(userid, formData) {
         let quantity = 0;
         if (cartTable.length === 0) {
             const data = await addToCart(userid);
-            cartid = data.insertId;
+            cartid = data.rows[0].id;
         } else {
             cartid = cartTable[0].id;
         }

@@ -4,7 +4,7 @@ const databaseUtils = require("../utils/database")
 
 const Order = {
     addToOrderTable: (userid, total, callback) => {
-        const query = `INSERT INTO "order" (total, userid) VALUES ($1, $2)`;
+        const query = `INSERT INTO "order" (total, userid) VALUES ($1, $2) RETURNING id`;
         const values = [total, userid];
         databaseUtils.insert_uti(conn, callback, query, values);
     },

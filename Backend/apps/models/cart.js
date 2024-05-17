@@ -16,7 +16,7 @@ const Cart = {
     },
 
     addToCart: (userid, callback) => {
-        const query = `INSERT INTO "cart" (userid) VALUES ($1)`;
+        const query = `INSERT INTO "cart" (userid) VALUES ($1) RETURNING id`;
         const values = [userid];
         databaseUtils.insert_uti(conn, callback, query, values);
     },
