@@ -21,12 +21,14 @@ function getCartItemByUser(cartid) {
 
 async function getCartData(userid) {
     try {
-        const cart = await getCartByUser(userid); // array
-        if (cart.length === 0) return null;
-        const cartshoe = await getCartItemByUser(cart[0].id); //array
+        const cart = await getCartByUser(userid);
+        if (cart.length === 0) return { items: [] };
+        const cartshoe = await getCartItemByUser(cart[0].id);
+        // console.log(cartshoe);
         const shoes = await Promise.all(cartshoe.map(async (shoe, index) => {
             const shoedetail = await ShoeService.getItemById(shoe.shoeid);
             shoedetail[0].quantity = cartshoe[index].quantity;
+            shoedetail[0].cartshoeId = cartshoe[index].id;
             return shoedetail[0];
         }))
         const result = {};
@@ -57,22 +59,30 @@ function addToCartshoe(formData, cartid) {
     })
 }
 
+function getCartshoeById(cartshoeId) {
+    return new Promise((resolve, reject) => {
+        Cart.getCartshoeById(cartshoeId, (err, result) => {
+            if (err) reject(err);
+            resolve(result);
+        })
+    })
+}
+
+function getCartById(cartId) {
+    return new Promise((resolve, reject) => {
+        Cart.getCartById(cartId, (err, result) => {
+            if (err) reject(err);
+            resolve(result);
+        })
+    })
+}
+
 async function checkUserUpdate(cartshoeid) {
     try {
-        const cartshoe = await new Promise((resolve, reject) => {
-            Cart.getCartshoeById(cartshoeid, (err, result) => {
-                if (err) reject(err);
-                resolve(result);
-            })
-        })
+        const cartshoe = await getCartshoeById(cartshoeid);
 
         const cartid = cartshoe[0].cartid;
-        const cart = await new Promise((resolve, reject) => {
-            Cart.getCartById(cartid, (err, result) => {
-                if (err) reject(err);
-                resolve(result);
-            })
-        })
+        const cart = await getCartById(cartid);
 
         const userid = cart[0].userid;
         return userid;
@@ -142,6 +152,15 @@ function deleteToCart(userid) {
     })
 }
 
+function deleteCartItem(id) {
+    return new Promise((resolve, reject) => {
+        Cart.deleteCartItem(id, (err, result) => {
+            if (err) reject(err);
+            resolve(result);
+        })
+    })
+}
+
 module.exports = {
     getCartData,
     getCartByUser,
@@ -150,4 +169,7 @@ module.exports = {
     checkUserUpdate,
     deleteToCart,
     deleteToCartshoe,
+    deleteCartItem,
+    getCartshoeById,
+    getCartById
 }

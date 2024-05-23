@@ -43,7 +43,8 @@ export default function ShopProductCard({ product, id }) {
     <Box
       component="img"
       alt={product.name}
-      src={product.image}
+      // src={product.image}
+      src='assets/images/products/product_3.jpg'
       sx={{
         top: 0,
         width: 1,

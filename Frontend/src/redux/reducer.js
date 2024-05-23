@@ -1,7 +1,7 @@
 import { GET_ACCOUNT } from './action';
 
 const initialState = {
-    account: { "name": "TEST", "email": "test@gmail.com" },
+    account: { "name": "Guest", "email": "Not logged in yet" },
 };
 
 const accountReducer = (state = initialState, action) => {

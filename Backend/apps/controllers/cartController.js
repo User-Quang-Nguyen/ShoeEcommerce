@@ -48,7 +48,34 @@ async function updateQuantity(req, res) {
         return res.status(200).json({ message: "Cập nhật giỏ hàng thành công", status: true });
     } catch (err) {
         // console.log(err);
-        return res.status(403).json({ message: "Xác thực thất bại", status: false })
+        return res.status(403).json({ message: "Xác thực thất bại", status: false });
+    }
+}
+
+async function deleteCartItem(req, res) {
+    const token = req.headers['authorization'];
+    try {
+        const infor = await jwt.verifyToken(token);
+        const useridToken = infor.id;
+        const CartshoeId = req.body.id;
+
+        const result = await CartService.getCartshoeById(CartshoeId);
+        const cartid = result[0].cartid;
+
+        const cart_infor = await CartService.getCartById(cartid);
+        const userid = cart_infor[0].userid;
+
+        if (userid != useridToken) {
+            throw new Error("Xác thực thất bại");
+        }
+        try{
+            await CartService.deleteCartItem(CartshoeId);
+            res.status(200).json({ message: "Xóa thành công", status: true });
+        }catch(e){
+            throw new Error("Lỗi bất định");
+        }
+    } catch (e) {
+        res.status(403).json({ message: "Xác thực thất bại", status: false });
     }
 }
 
@@ -56,4 +83,5 @@ module.exports = {
     getCartData,
     addToCart,
     updateQuantity,
+    deleteCartItem
 }

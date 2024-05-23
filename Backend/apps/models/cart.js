@@ -55,6 +55,12 @@ const Cart = {
         const query = `DELETE FROM "cart_shoe" WHERE "cartid" = $1`;
         const values = [cartid];
         databaseUtils.delete_uti(conn, callback, query, values);
+    },
+
+    deleteCartItem: (id, callback) => {
+        const query = `DELETE FROM "cart_shoe" WHERE "id" = $1`;
+        const values = [id];
+        databaseUtils.delete_uti(conn, callback, query, values);
     }
 }
 

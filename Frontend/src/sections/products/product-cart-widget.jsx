@@ -2,6 +2,7 @@ import Badge from '@mui/material/Badge';
 import { styled } from '@mui/material/styles';
 
 import Iconify from 'src/components/iconify';
+import { useRouter } from 'src/routes/hooks';
 
 // ----------------------------------------------------------------------
 
@@ -29,8 +30,12 @@ const StyledRoot = styled('div')(({ theme }) => ({
 // ----------------------------------------------------------------------
 
 export default function CartWidget() {
+  const route = useRouter();
+  const handleClick = () => {
+    route.push('/cart');
+  }
   return (
-    <StyledRoot>
+    <StyledRoot onClick={handleClick}>
         <Iconify icon="eva:shopping-cart-fill" width={24} height={24} />
     </StyledRoot>
   );
