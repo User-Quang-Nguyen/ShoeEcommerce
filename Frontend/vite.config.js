@@ -10,9 +10,9 @@ export default defineConfig({
     react(),
     commonjs()
   ],
-  optimizeDeps: {
-    exclude: ['@mui/x-data-grid'],
-  },
+  // optimizeDeps: {
+  //   exclude: ['@mui/x-data-grid', '@mui/material'],
+  // },
   resolve: {
     alias: [
       {

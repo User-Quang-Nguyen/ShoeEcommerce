@@ -62,7 +62,6 @@ export default function CartView() {
   }, [data]);
 
   const handleDelete = (record) => {
-    console.log(record);
     const formData = {
       id: record.cartshoeid
     }
@@ -122,8 +121,7 @@ export default function CartView() {
               data={data}
               quantities={quantities}/>
           </Stack>
-        )
-}
+        )}
     </Container>
   );
 }

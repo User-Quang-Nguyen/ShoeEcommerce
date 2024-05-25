@@ -14,3 +14,12 @@ export async function getProducts(currentPage) {
         return error.response
     }
 }
+
+export async function productDetail(id) {
+    try {
+        const response = await axios.get(`${API_URL}/shoe/${id}`);
+        return response;
+    } catch (err) {
+        return err.response;
+    }
+}

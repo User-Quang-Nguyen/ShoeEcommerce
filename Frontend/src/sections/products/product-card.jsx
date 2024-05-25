@@ -12,10 +12,12 @@ import { fCurrency } from 'src/utils/format-number';
 import { addToCart } from 'src/api/cart';
 import { useEffect, useState } from 'react';
 import { Snackbar } from 'src/components/notification';
+import { useRouter } from 'src/routes/hooks';
 
 // ----------------------------------------------------------------------
 
 export default function ShopProductCard({ product, id }) {
+  const route = useRouter();
   const [fail, setFail] = useState(false);
   const [success, setSuccess] = useState(false);
 
@@ -70,6 +72,11 @@ export default function ShopProductCard({ product, id }) {
     </Typography>
   );
 
+  const handleClick = (event) => {
+    event.preventDefault();
+    route.push(`/product?id=${id}`)
+  };
+
   return (
     <Card>
       {success && (
@@ -83,7 +90,7 @@ export default function ShopProductCard({ product, id }) {
       </Box>
 
       <Stack spacing={2} sx={{ p: 3 }}>
-        <Link color="inherit" underline="hover" variant="subtitle2" noWrap>
+        <Link color="inherit" underline="hover" variant="subtitle2" noWrap href='#' onClick={handleClick}>
           {product.name}
         </Link>
 
