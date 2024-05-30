@@ -41,7 +41,6 @@ export default function AccountPopover() {
 
     fetchData();
   }, [dispatch]);
-  
   const [open, setOpen] = useState(null);
 
   const handleOpen = (event) => {

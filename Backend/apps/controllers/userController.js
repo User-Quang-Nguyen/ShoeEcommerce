@@ -7,6 +7,9 @@ async function getUserById(req, res) {
         const infor = await jwt.verifyToken(token);
         const userid = infor.id;
         const userInfor = await UserService.getUserById(userid);
+        if (!userInfor || userInfor.length == 0) {
+            return res.status(400).json({ message: "Lỗi xác thực", status: false })
+        }
         return res.status(200).json(userInfor[0]);
     } catch (error) {
         return res.status(400).json({ message: "Lỗi xác thực", status: false })

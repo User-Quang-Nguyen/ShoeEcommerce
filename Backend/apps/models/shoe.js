@@ -15,8 +15,20 @@ const Shoe = {
         databaseUtils.select_uti(conn, callback, query, values);
     },
 
+    getItemDetail: (id, callback) => {
+        const query = `SELECT * FROM "shoe_detail" WHERE "shoeid" = $1`;
+        const values = [id];
+        databaseUtils.select_uti(conn, callback, query, values);
+    },
+
+    getItemDetailById: (id, callback) => {
+        const query = `SELECT * FROM "shoe_detail" WHERE "id" = $1`;
+        const values = [id];
+        databaseUtils.select_uti(conn, callback, query, values);
+    },
+
     updateQuantity: (quantity, id, callback) => {
-        const query = `UPDATE "shoe" SET "quantity" = $1 WHERE "id" = $2`;
+        const query = `UPDATE "shoe_detail" SET "quantity" = $1 WHERE "id" = $2`;
         const values = [quantity, id];
         databaseUtils.update_uti(conn, callback, query, values);
     },

@@ -14,7 +14,7 @@ async function login(formData, callback) {
             if (err) {
                 return callback(err);
             }
-            if (user.length === 0) {
+            if (!user) {
                 return callback(new Error("Người dùng không tồn tại"));
             }
             try {

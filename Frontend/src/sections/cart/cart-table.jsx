@@ -1,7 +1,6 @@
 import React from 'react';
 import {Button, Table} from 'antd';
 
-// import {data} from 'src/_mock/cart'
 // -------------------------------------------------------------------
 export default function CartTable({handleDecrement, handleIncrement, handleDelete, data, quantities}) {
   const columns = [
@@ -34,7 +33,7 @@ export default function CartTable({handleDecrement, handleIncrement, handleDelet
       key: 'quantity',
       render: (_, record) => (
         <div
-          style={{
+        style={{
           display: 'flex',
           alignItems: 'center'
         }}>
@@ -65,5 +64,5 @@ export default function CartTable({handleDecrement, handleIncrement, handleDelet
     }
   ];
 
-  return (<Table columns={columns} dataSource={data}/>);
+  return (<Table pagination={false} columns={columns} dataSource={data}/>);
 }

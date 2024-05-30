@@ -24,12 +24,18 @@ async function getCartData(userid) {
         const cart = await getCartByUser(userid);
         if (cart.length === 0) return { items: [] };
         const cartshoe = await getCartItemByUser(cart[0].id);
-        // console.log(cartshoe);
         const shoes = await Promise.all(cartshoe.map(async (shoe, index) => {
-            const shoedetail = await ShoeService.getItemById(shoe.shoeid);
-            shoedetail[0].quantity = cartshoe[index].quantity;
-            shoedetail[0].cartshoeId = cartshoe[index].id;
-            return shoedetail[0];
+            const shoedetail = await ShoeService.getItemDetailById(shoe.shoeid);
+            const shoe1 = await ShoeService.getItemById(shoedetail.shoeid);
+            const shoe1Copy = { ...shoe1[0] };
+            delete shoe1Copy.detail;
+            const result = {
+                ...shoe1Copy,
+                ...shoedetail,
+                quantity: shoe.quantity,
+                cartshoeid: shoe.id
+            };
+            return result;
         }))
         const result = {};
         result.userid = cart[0].userid;

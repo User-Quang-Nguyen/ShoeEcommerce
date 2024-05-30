@@ -29,6 +29,15 @@ function getNameAsync(id) {
     });
 }
 
+function getItemDetail(id) {
+    return new Promise((resolve, reject) => {
+        Shoe.getItemDetail(id, (err, result) => {
+            if (err) return reject(err);
+            resolve(result);
+        });
+    });
+}
+
 async function getItems(startIndex, endIndex) {
     try {
         const shoes = await getItemsAsync(startIndex, endIndex);
@@ -47,16 +56,34 @@ async function getItems(startIndex, endIndex) {
 async function getItemById(id) {
     try {
         const shoe = await getItemAsync(id);
+        // console.log(shoe);
         const brandName = await getNameAsync(shoe[0].brandid);
         const category = await CategoryService.getCategoryName(id);
+        const detail = await getItemDetail(id);
         delete shoe[0].brandid;
         shoe[0].brandname = brandName[0].name;
         shoe[0].category = category;
+        shoe[0].detail = detail;
         // json to array
         shoe.forEach(item => {
             item.category = item.category.map(cat => cat.name);
         });
         return shoe;
+    } catch (err) {
+        console.log(err);
+        throw new Error("Có lỗi xảy ra");
+    }
+}
+
+async function getItemDetailById(id) {
+    try {
+        const detail = await new Promise((resolve, reject) => {
+            Shoe.getItemDetailById(id, (err, result) => {
+                if (err) return reject(err);
+                resolve(result);
+            });
+        });
+        return detail[0];
     } catch (err) {
         console.log(err);
         throw new Error("Có lỗi xảy ra");
@@ -93,6 +120,7 @@ async function deleteShoe(id) {
 module.exports = {
     getItems,
     getItemById,
+    getItemDetailById,
     addShoe,
     updateShoe,
     deleteShoe,

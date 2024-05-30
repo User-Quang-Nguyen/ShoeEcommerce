@@ -15,9 +15,15 @@ const Order = {
         databaseUtils.insert_uti(conn, callback, query, values);
     },
 
-    getOrderById: (userid, callback) => {
+    getOrderByUserId: (userid, callback) => {
         const query = `SELECT * FROM "order" WHERE "userid" = $1`;
         const values = [userid];
+        databaseUtils.select_uti(conn, callback, query, values);
+    },
+
+    getOrderById: (id, callback) => {
+        const query = `SELECT * FROM "order" WHERE "id" = $1`;
+        const values = [id];
         databaseUtils.select_uti(conn, callback, query, values);
     },
 

@@ -326,7 +326,7 @@
     clsx "^2.0.0"
     prop-types "^15.8.1"
 
-"@mui/material@^5.0.0", "@mui/material@^5.15.14", "@mui/material@^5.15.18", "@mui/material@^5.8.6":
+"@mui/material@^5.0.0", "@mui/material@^5.15.18", "@mui/material@^5.8.6":
   version "5.15.18"
   resolved "https://registry.npmjs.org/@mui/material/-/material-5.15.18.tgz"
   integrity sha512-n+/dsiqux74fFfcRUJjok+ieNQ7+BEk6/OwX9cLcLvriZrZb+/7Y8+Fd2HlUUbn5N0CDurgAHm0VH1DqyJ9HAw==
@@ -363,7 +363,7 @@
     csstype "^3.1.3"
     prop-types "^15.8.1"
 
-"@mui/system@^5.14.12", "@mui/system@^5.15.14", "@mui/system@^5.15.15", "@mui/system@^5.8.0":
+"@mui/system@^5.14.12", "@mui/system@^5.15.15", "@mui/system@^5.8.0":
   version "5.15.15"
   resolved "https://registry.npmjs.org/@mui/system/-/system-5.15.15.tgz"
   integrity sha512-aulox6N1dnu5PABsfxVGOZffDVmlxPOVgj56HrUnJE8MCSh8lOvvkd47cebIVQQYAjpwieXQXiDPj5pwM40jTQ==
@@ -391,18 +391,6 @@
     "@types/prop-types" "^15.7.11"
     prop-types "^15.8.1"
     react-is "^18.2.0"
-
-"@mui/x-data-grid@^7.5.0":
-  version "7.5.0"
-  resolved "https://registry.npmjs.org/@mui/x-data-grid/-/x-data-grid-7.5.0.tgz"
-  integrity sha512-CdIDjqMHPWJvG/M6z36fnqIR+z2nW8Guk/wLUOv7vRJNVeOJasrkqg3xVZ3IFEGtbkTlQQ6iu1Os8YlF2HPWww==
-  dependencies:
-    "@babel/runtime" "^7.24.5"
-    "@mui/system" "^5.15.14"
-    "@mui/utils" "^5.15.14"
-    clsx "^2.1.1"
-    prop-types "^15.8.1"
-    reselect "^4.1.8"
 
 "@mui/x-tree-view@6.0.0-alpha.1":
   version "6.0.0-alpha.1"
@@ -824,7 +812,7 @@ classnames@^2.2.1, classnames@^2.2.3, classnames@^2.2.5, classnames@^2.2.6, clas
   resolved "https://registry.npmjs.org/classnames/-/classnames-2.5.1.tgz"
   integrity sha512-saHYOzhIQs6wy2sVxTM6bUDsQO4F50V9RQ22qBpEdCW+I+/Wmke2HOl6lS6dTpdxVhb88/I6+Hs+438c3lfUow==
 
-clsx@^2.0.0, clsx@^2.1.0, clsx@^2.1.1:
+clsx@^2.0.0, clsx@^2.1.0:
   version "2.1.1"
   resolved "https://registry.npmjs.org/clsx/-/clsx-2.1.1.tgz"
   integrity sha512-eYm0QWBtUrBWZWG0d386OGAw16Z995PiOVo2B7bjWSbHedGl5e0ZWaq65kOGgUSNesEIDkB9ISbTg/JK9dhCZA==
@@ -1737,11 +1725,6 @@ react-hook-form@^7.47.0:
   resolved "https://registry.npmjs.org/react-hook-form/-/react-hook-form-7.47.0.tgz"
   integrity sha512-F/TroLjTICipmHeFlMrLtNLceO2xr1jU3CyiNla5zdwsGUGu2UOxxR4UyJgLlhMwLW/Wzp4cpJ7CPfgJIeKdSg==
 
-react-infinite-scroll@^0.1.5:
-  version "0.1.5"
-  resolved "https://registry.npmjs.org/react-infinite-scroll/-/react-infinite-scroll-0.1.5.tgz"
-  integrity sha512-5i6ndJNL68I4+Kc6+AxLwGho4TGBKG0cnIKjW2F6kTT8JNCzpYMhe+jCOo9u6yTXzFL5DE2OmmNvxkUIcAtUow==
-
 react-is@^16.13.1:
   version "16.13.1"
   resolved "https://registry.npmjs.org/react-is/-/react-is-16.13.1.tgz"
@@ -1818,11 +1801,6 @@ regenerator-runtime@^0.14.0:
   version "0.14.0"
   resolved "https://registry.npmjs.org/regenerator-runtime/-/regenerator-runtime-0.14.0.tgz"
   integrity sha512-srw17NI0TUWHuGa5CFGGmhfNIeja30WMBfbslPNhf6JrqQlLN5gcrvig1oqPxiVaXb0oW0XRKtH6Nngs5lKCIA==
-
-reselect@^4.1.8:
-  version "4.1.8"
-  resolved "https://registry.npmjs.org/reselect/-/reselect-4.1.8.tgz"
-  integrity sha512-ab9EmR80F/zQTMNeneUr4cv+jSwPJgIlvEmVwLerwrWVbpLlBuls9XHzIeTFy4cegU2NHBp3va0LKOzU5qFEYQ==
 
 resize-observer-polyfill@^1.5.1:
   version "1.5.1"
