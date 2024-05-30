@@ -45,3 +45,17 @@ export async function getOrders() {
         return error.response
     }
 }
+
+export async function updateStatus (formData) {
+    const token = getAuthToken();
+    try {
+        const response = await axios.put(`${API_URL}/order`, formData, {
+            headers: {
+                Authorization: token
+            }
+        });
+        return response;
+    } catch (error) {
+        return error.response
+    }
+}
