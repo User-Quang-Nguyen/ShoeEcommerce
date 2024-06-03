@@ -29,7 +29,28 @@ async function updateUserInfor(req, res) {
     }
 }
 
+async function getAllUser(req, res) {
+    try {
+        const result = await UserService.getAllUser();
+        return res.status(200).json(result);
+    } catch (error) {
+        return res.status(400).json({ message: "Lỗi xác thực", status: false })
+    }
+}
+
+async function deleteUser(req, res) {
+    try {
+        const {userid} = req.body;
+        const result = await UserService.deleteUser(userid);
+        return res.status(200).json({ message: "Xóa người dùng", status: true })
+    } catch (error) {
+        return res.status(400).json({ message: "Lỗi xác thực", status: false })
+    }
+}
+
 module.exports = {
     getUserById,
     updateUserInfor,
+    getAllUser,
+    deleteUser
 }

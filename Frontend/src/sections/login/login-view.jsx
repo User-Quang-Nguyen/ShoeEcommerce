@@ -29,6 +29,8 @@ import FilledAlerts from 'src/components/notification/alter-view';
 
 export default function LoginView() {
   const [loginError, setLoginError] = useState(false);
+  const [message, setMessage] = useState('Đăng nhập thất bại!');
+
   useEffect(() => {
     const timeout = setTimeout(() => {
       setLoginError(false);
@@ -64,6 +66,7 @@ export default function LoginView() {
 
      if(result.data.state === false){
       setLoginError(true);
+      setMessage(result.data.message);
      }
 
      if(result.data.state === true){
@@ -206,7 +209,7 @@ export default function LoginView() {
           </Divider>
 
           {loginError && (
-            <FilledAlerts severity="error" content="Đăng nhập thất bại"/>
+            <FilledAlerts severity="error" content={message}/>
           )}
           {renderForm}
         </Card>

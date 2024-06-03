@@ -10,6 +10,7 @@ import MenuItem from '@mui/material/MenuItem';
 import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
 
+import { useRouter } from 'src/routes/hooks';
 import { getAccount } from 'src/redux/action';
 
 // ----------------------------------------------------------------------
@@ -18,10 +19,12 @@ const MENU_OPTIONS = [
   {
     label: 'Home',
     icon: 'eva:home-fill',
+    path: '/',
   },
   {
     label: 'Profile',
     icon: 'eva:person-fill',
+    path: '/profile',
   },
   {
     label: 'Settings',
@@ -34,6 +37,8 @@ const MENU_OPTIONS = [
 export default function AccountPopover() {
   const account = useSelector(state => state.account);
   const dispatch = useDispatch();
+  const router = useRouter();
+
   useEffect(() => {
     const fetchData = async () => {
       await dispatch(getAccount());
@@ -41,6 +46,7 @@ export default function AccountPopover() {
 
     fetchData();
   }, [dispatch]);
+
   const [open, setOpen] = useState(null);
 
   const handleOpen = (event) => {
@@ -51,6 +57,11 @@ export default function AccountPopover() {
     setOpen(null);
   };
   
+  const handleMenuItemClick = (path) => {
+    handleClose();
+    router.push(path);
+  };
+
   return (
     <>
       <IconButton
@@ -105,7 +116,7 @@ export default function AccountPopover() {
         <Divider sx={{ borderStyle: 'dashed' }} />
 
         {MENU_OPTIONS.map((option) => (
-          <MenuItem key={option.label} onClick={handleClose}>
+          <MenuItem key={option.label} onClick={() => handleMenuItemClick(option.path)}>
             {option.label}
           </MenuItem>
         ))}

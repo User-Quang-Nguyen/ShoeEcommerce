@@ -10,9 +10,11 @@ import OrderButton from '../order-button';
 import Information from '../information';
 import { getTotalMoney } from 'src/api/order';
 import { order } from 'src/api/order';
+import { getUserInfor } from 'src/api/account';
 
 export default function CartView() {
   const [data, setData] = useState([]);
+  const [address, setAddress] = useState('');
   const [quantities, setQuantities] = useState({});
   const [error, setError] = useState(false);
   const [count, setCount] = useState(0);
@@ -28,11 +30,20 @@ export default function CartView() {
     }
   };
 
+  const fetchAddress = async () => {
+    try {
+      const addressResponse = await getUserInfor();
+      setAddress(addressResponse.data.address);
+    } catch (error) {
+      console.error('Failed to fetch address:', error);
+    }
+  };
+
   useEffect(() => {
     const fetchData = async () => {
       try {
         await fetchTotalMoney();
-
+        await fetchAddress();
         const cartResponse = await getCartItems();
         const cartItems = cartResponse.data.items;
 
@@ -152,8 +163,8 @@ export default function CartView() {
       <Stack>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
           <div style={{ display: 'flex', flexDirection: 'column', flex: 1 }}>
-            <p>Giao hàng đến: Hoằng Trạch, Hoằng Hóa, Thanh Hóa</p>
-            <a href="#">Thay đổi</a>
+            <p>Giao hàng đến: {address}</p>
+            <a href="/profile">Thay đổi</a>
           </div>
           <div style={{ display: 'flex', flexDirection: 'column', flex: 1, alignItems: 'center' }}>
             <div style={{ marginBottom: '10px' }}>

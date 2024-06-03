@@ -3,13 +3,17 @@ import PropTypes from 'prop-types';
 
 import Stack from '@mui/material/Stack';
 import Avatar from '@mui/material/Avatar';
-import Popover from '@mui/material/Popover';
 import TableRow from '@mui/material/TableRow';
 import Checkbox from '@mui/material/Checkbox';
-import MenuItem from '@mui/material/MenuItem';
 import TableCell from '@mui/material/TableCell';
 import Typography from '@mui/material/Typography';
 import IconButton from '@mui/material/IconButton';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
+import Button from '@mui/material/Button';
 
 import Label from 'src/components/label';
 import Iconify from 'src/components/iconify';
@@ -18,22 +22,31 @@ import Iconify from 'src/components/iconify';
 
 export default function UserTableRow({
   selected,
+  id,
+  avatar,
   name,
-  avatarUrl,
-  company,
+  email,
+  phonenumber,
+  address,
+  gender,
   role,
-  isVerified,
-  status,
+  isdeleted,
   handleClick,
+  handleDelete
 }) {
-  const [open, setOpen] = useState(null);
+  const [openDialog, setOpenDialog] = useState(false);
 
-  const handleOpenMenu = (event) => {
-    setOpen(event.currentTarget);
+  const handleOpenDialog = () => {
+    setOpenDialog(true);
   };
 
-  const handleCloseMenu = () => {
-    setOpen(null);
+  const handleCloseDialog = () => {
+    setOpenDialog(false);
+  };
+
+  const confirmDelete = () => {
+    handleDelete(id);
+    handleCloseDialog();
   };
 
   return (
@@ -45,61 +58,74 @@ export default function UserTableRow({
 
         <TableCell component="th" scope="row" padding="none">
           <Stack direction="row" alignItems="center" spacing={2}>
-            <Avatar alt={name} src={avatarUrl} />
+            <Avatar alt={name} src="assets/images/avatar_1.jpg" />
             <Typography variant="subtitle2" noWrap>
               {name}
             </Typography>
           </Stack>
         </TableCell>
 
-        <TableCell>{company}</TableCell>
+        <TableCell>{email}</TableCell>
 
-        <TableCell>{role}</TableCell>
+        <TableCell>{phonenumber}</TableCell>
 
-        <TableCell align="center">{isVerified ? 'Yes' : 'No'}</TableCell>
+        <TableCell>{address}</TableCell>
+
+        <TableCell>{gender == 0 ? "Male" : "Female"}</TableCell>
 
         <TableCell>
-          <Label color={(status === 'banned' && 'error') || 'success'}>{status}</Label>
+          {
+            isdeleted ? <Label color="error">Disable</Label> : <Label color="success">Active</Label>
+          }
         </TableCell>
 
         <TableCell align="right">
-          <IconButton onClick={handleOpenMenu}>
-            <Iconify icon="eva:more-vertical-fill" />
-          </IconButton>
+          {
+            !isdeleted && role != 1 ? (
+              <IconButton onClick={handleOpenDialog}>
+                <Iconify icon="material-symbols:delete" />
+              </IconButton>
+            ) : null
+          }
         </TableCell>
       </TableRow>
 
-      <Popover
-        open={!!open}
-        anchorEl={open}
-        onClose={handleCloseMenu}
-        anchorOrigin={{ vertical: 'top', horizontal: 'left' }}
-        transformOrigin={{ vertical: 'top', horizontal: 'right' }}
-        PaperProps={{
-          sx: { width: 140 },
-        }}
+      <Dialog
+        open={openDialog}
+        onClose={handleCloseDialog}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
       >
-        <MenuItem onClick={handleCloseMenu}>
-          <Iconify icon="eva:edit-fill" sx={{ mr: 2 }} />
-          Edit
-        </MenuItem>
-
-        <MenuItem onClick={handleCloseMenu} sx={{ color: 'error.main' }}>
-          <Iconify icon="eva:trash-2-outline" sx={{ mr: 2 }} />
-          Delete
-        </MenuItem>
-      </Popover>
+        <DialogTitle id="alert-dialog-title">{"Thông báo"}</DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-description">
+            Bạn muốn xóa {name} khỏi hệ thống?
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleCloseDialog} color="primary">
+            Hủy
+          </Button>
+          <Button onClick={confirmDelete} color="primary" autoFocus>
+            Xóa
+          </Button>
+        </DialogActions>
+      </Dialog>
     </>
   );
 }
 
 UserTableRow.propTypes = {
-  avatarUrl: PropTypes.any,
-  company: PropTypes.any,
+  id: PropTypes.string.isRequired,
+  selected: PropTypes.bool,
+  avatar: PropTypes.string,
+  name: PropTypes.string,
+  email: PropTypes.string,
+  phonenumber: PropTypes.string,
+  address: PropTypes.string,
+  gender: PropTypes.number,
+  role: PropTypes.number,
+  isdeleted: PropTypes.bool,
   handleClick: PropTypes.func,
-  isVerified: PropTypes.any,
-  name: PropTypes.any,
-  role: PropTypes.any,
-  selected: PropTypes.any,
-  status: PropTypes.string,
+  handleDelete: PropTypes.func.isRequired,
 };

@@ -51,6 +51,7 @@ async function login(req, res) {
         return res.status(500).json({ message: "Có lỗi xảy ra" });
     }
 }
+
 module.exports = {
     registerUser: registerUser,
     login: login

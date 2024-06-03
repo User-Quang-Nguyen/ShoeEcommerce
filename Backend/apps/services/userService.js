@@ -18,7 +18,27 @@ function updateInfor(userid, formData) {
     })
 }
 
+async function getAllUser() {
+    return new Promise((resolve, reject) => {
+        User.getAllUser((err, result) => {
+            if (err) reject(err);
+            resolve(result);
+        })
+    })
+}
+
+async function deleteUser(id) {
+    return new Promise((resolve, reject) => {
+        User.deleteUser(id, (err, result) => {
+            if (err) reject(err);
+            resolve(result);
+        })
+    })
+}
+
 module.exports = {
     getUserById,
     updateInfor,
+    getAllUser,
+    deleteUser
 }

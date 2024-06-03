@@ -60,10 +60,20 @@ const updateStateOrder = (req, res, next) => {
     }
 }
 
+const deleteUser = (req, res, next) => {
+    const formData = req.body;
+    if (formData.hasOwnProperty('userid')) {
+        next();
+    } else {
+        return res.status(400).json({ message: "Trường không hợp lệ", state: false });
+    }
+}
+
 module.exports = {
     updateQuantity,
     addToCart,
     addShoe,
     updateShoe,
     updateStateOrder,
+    deleteUser
 }

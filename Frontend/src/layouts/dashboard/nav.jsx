@@ -64,7 +64,9 @@ export default function Nav({ openNav, onCloseNav }) {
   const renderMenu = (
     <Stack component="nav" spacing={0.5} sx={{ px: 2 }}>
       {navConfig.map((item) => (
-        <NavItem key={item.title} item={item} />
+        (account.role === 1 || item.role !== "admin") && (
+          <NavItem key={item.title} item={item} />
+      )
       ))}
     </Stack>
   );

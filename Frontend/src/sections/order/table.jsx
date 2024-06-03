@@ -49,6 +49,11 @@ export default function OrderTable({ data }) {
 
   const columns = [
     {
+      title: "ID",
+      dataIndex: 'key',
+      key: 'key',
+    },
+    {
       title: 'Total',
       dataIndex: 'total',
       key: 'total',

@@ -10,6 +10,7 @@ export default function DetailTable({data}) {
           <img src={text} alt={record.name} style={{ width: 100, height: 'auto' }} />
         )}/>
       <Column title="Color" dataIndex="color" key="color"/>
+      <Column title="Size" dataIndex="size" key="size"/>
       <Column title="Brand" dataIndex="brandname" key="brandname"/>
       <Column title="Price" dataIndex="price" key="price"/>
       <Column title="Quantity" dataIndex="quantity" key="quantity"/>

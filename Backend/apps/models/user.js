@@ -39,7 +39,7 @@ const User = {
     },
 
     findById: (userid, callback) => {
-        const query = `SELECT "id", "name", "email", "phonenumber", "address", "gender", "role" FROM "user" WHERE "id" = $1`;
+        const query = `SELECT "id", "name", "email", "phonenumber", "address", "gender", "role", "isdeleted" FROM "user" WHERE "id" = $1`;
         const values = [userid];
         databaseUtils.select_uti(conn, callback, query, values);
     },
@@ -49,6 +49,17 @@ const User = {
         const values = [formData.name, formData.email, formData.phonenumber, formData.address, formData.gender, userid];
         databaseUtils.update_uti(conn, callback, query, values);
     },
+
+    getAllUser: (callback) => {
+        const query = `SELECT "id", "name", "email", "phonenumber", "address", "gender", "role", "createdat", "isdeleted" FROM "user"`;
+        databaseUtils.select_uti(conn, callback, query);
+    },
+
+    deleteUser: (id, callback) => {
+        const query = `UPDATE "user" SET "isdeleted" = true WHERE "id" = $1`;
+        const values = [id];
+        databaseUtils.update_uti(conn, callback, query, values);
+    }
 }
 
 module.exports = User
