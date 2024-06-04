@@ -8,7 +8,7 @@ export default function Profile() {
   return (
     <>
       <Helmet>
-        <title> Profile </title>
+        <title> Shoe Ecommerce </title>
       </Helmet>
 
       <UserView />

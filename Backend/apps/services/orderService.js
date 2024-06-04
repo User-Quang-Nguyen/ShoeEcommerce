@@ -210,10 +210,21 @@ function getOrderById(id) {
     })
 }
 
+function getAllOrder() {
+    return new Promise((resolve, reject) => {
+        Order.getAllOrder((err, result) => {
+            if (err) reject(err);
+            resolve(result);
+        })
+    })
+}
+
 module.exports = {
     calculate,
     order,
     getListItemOrder,
     updateStateOrder,
-    getOrderById
+    getOrderById,
+    getAllOrder,
+    getOrderDetailById
 }

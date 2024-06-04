@@ -1,5 +1,7 @@
 const OrderService = require("../services/orderService")
 const CartService = require("../services/cartService")
+const UserService = require("../services/userService")
+const ShoeService = require("../services/shoeService")
 const jwt = require("../utils/jwt")
 
 async function addToOrderTable(req, res) {
@@ -51,6 +53,19 @@ async function updateStateOrder(req, res) {
     }
 }
 
+async function adminUpdateStateOrder(req, res) {
+    try {
+        const { id, status } = req.body;
+        const result = await OrderService.updateStateOrder(id, status);
+        if (result == false) {
+            return res.status(403).json({ message: "Thất bại", state: false });
+        }
+        return res.status(200).json({ message: "Thành công", state: true });
+    } catch (error) {
+        return res.status(500).json({ message: error.message, state: false });
+    }
+}
+
 async function getMoneyOrder(req, res) {
     try {
         const token = req.headers['authorization'];
@@ -64,6 +79,48 @@ async function getMoneyOrder(req, res) {
         console.log(err);
         return res.status(400).json({ message: "Error", status: false })
     }
+};
+
+async function getAllOrder(req, res) {
+    try {
+        const orders = await OrderService.getAllOrder();
+        const order_details = await Promise.all(orders.map(async (order, index) => {
+            const items = await OrderService.getOrderDetailById(order.id);
+            const user = await UserService.getUserById(order.userid);
+            if (order.total == 0) {
+                return null;
+            }
+            const result = {
+                ...order,
+                name: user[0]?.name,
+            }
+            const details = await Promise.all(items.map(async (item) => {
+                const detail = await ShoeService.getItemDetailById(item.shoeid);
+                const de = await ShoeService.getItemById(detail.shoeid);
+
+                delete detail.quantity;
+                delete detail.shoeid;
+                delete detail.id;
+                delete de[0].detail;
+                delete de[0].price;
+                delete de[0].id;
+
+                const fullInfor = {
+                    ...item,
+                    ...detail,
+                    ...de[0]
+                };
+                return fullInfor;
+            }));
+            result.items = details;
+            return result;
+        }))
+        const filteredList = order_details.filter(order => order !== null);
+        return res.status(200).json(filteredList);
+    } catch (error) {
+        console.log(error);
+        return res.status(400).json({ message: "Lỗi xác thực", status: false })
+    }
 }
 
 module.exports = {
@@ -71,4 +128,6 @@ module.exports = {
     getListItemOrder,
     updateStateOrder,
     getMoneyOrder,
+    getAllOrder,
+    adminUpdateStateOrder
 }

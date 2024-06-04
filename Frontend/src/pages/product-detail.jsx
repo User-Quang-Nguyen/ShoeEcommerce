@@ -8,7 +8,7 @@ export default function AppPage() {
   return (
     <>
       <Helmet>
-        <title> Product Detail </title>
+        <title> Shoe Ecommerce </title>
       </Helmet>
 
       <ProductDetail />

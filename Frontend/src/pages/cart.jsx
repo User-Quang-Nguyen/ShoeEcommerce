@@ -8,7 +8,7 @@ export default function CartPage() {
   return (
     <>
       <Helmet>
-        <title> Cart </title>
+        <title> Shoe Ecommerce </title>
       </Helmet>
 
       <CartView />

@@ -53,6 +53,9 @@ const updateShoe = (req, res, next) => {
 const updateStateOrder = (req, res, next) => {
     const formData = req.body;
     // 1 oke, 2 cancel
+    if (!formData.hasOwnProperty('status') || !formData.hasOwnProperty('id')) {
+        return res.status(400).json({ message: "Trường không hợp lệ", state: false });
+    }
     if (formData.status == 1 || formData.status == 2) {
         next();
     } else {

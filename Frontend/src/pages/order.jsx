@@ -8,7 +8,7 @@ export default function BlogPage() {
   return (
     <>
       <Helmet>
-        <title> Order History </title>
+        <title> Shoe Ecommerce </title>
       </Helmet>
 
       <OrderView />

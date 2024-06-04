@@ -37,6 +37,11 @@ const Order = {
         const query = `UPDATE "order" SET "status" = $1 WHERE "id" = $2`;
         const values = [status, orderid];
         databaseUtils.update_uti(conn, callback, query, values);
+    },
+    
+    getAllOrder: (callback) => {
+        const query = `SELECT * FROM "order"`;
+        databaseUtils.select_uti(conn, callback, query);
     }
 }
 

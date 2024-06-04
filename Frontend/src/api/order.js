@@ -46,7 +46,35 @@ export async function getOrders() {
     }
 }
 
-export async function updateStatus (formData) {
+export async function updateStatus(formData) {
+    const token = getAuthToken();
+    try {
+        const response = await axios.put(`${API_URL}/order`, formData, {
+            headers: {
+                Authorization: token
+            }
+        });
+        return response;
+    } catch (error) {
+        return error.response
+    }
+}
+
+export async function adminGetOrders() {
+    const token = getAuthToken();
+    try {
+        const response = await axios.get(`${API_URL}/admin/order`, {
+            headers: {
+                Authorization: token
+            }
+        });
+        return response;
+    } catch (error) {
+        return error.response
+    }
+}
+
+export async function adminUpdateStatus(formData) {
     const token = getAuthToken();
     try {
         const response = await axios.put(`${API_URL}/order`, formData, {
