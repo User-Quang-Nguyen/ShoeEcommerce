@@ -13,6 +13,7 @@ export const SignupPage = lazy(() => import('src/pages/signup'))
 export const ProductsPage = lazy(() => import('src/pages/products'));
 export const ProductDetail = lazy(() => import('src/pages/product-detail'));
 export const UserInforPage = lazy(() => import('src/pages/profile'));
+export const ProductManagePage = lazy(() => import('src/pages/product-manage'));
 export const CartPage = lazy(() => import('src/pages/cart'));
 export const Page404 = lazy(() => import('src/pages/page-not-found'));
 
@@ -45,6 +46,14 @@ export default function Router() {
             <ProtectedRouter role={account.role} allowedRoles={[1]}>
               <IndexPage />
             </ProtectedRouter>
+          ),
+        },
+        {
+          path: 'manage',
+          element: (
+            // <ProtectedRouter role={account.role} allowedRoles={[1]}>
+              <ProductManagePage />
+            // </ProtectedRouter> 
           ),
         },
         { path: 'order', element: <OrderPage /> },
