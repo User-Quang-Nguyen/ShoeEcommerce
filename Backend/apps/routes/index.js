@@ -8,5 +8,7 @@ router.use("/cart", require("./cartRoute"));
 router.use("/user", require("./userRoute"));
 router.use("/order", require("./orderRoute"));
 router.use("/admin", require("./adminRoute"));
+router.use("/brand", require("./brandRoute"));
+router.use("/category", require("./cateRoute"));
 
 module.exports = router;

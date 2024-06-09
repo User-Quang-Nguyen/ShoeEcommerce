@@ -1,178 +1,176 @@
-import { useEffect, useState } from 'react';
-
-import Card from '@mui/material/Card';
-import Stack from '@mui/material/Stack';
-import Table from '@mui/material/Table';
-import Button from '@mui/material/Button';
-import Container from '@mui/material/Container';
-import TableBody from '@mui/material/TableBody';
+import React, { useEffect, useState } from "react";
 import Typography from '@mui/material/Typography';
-import TableContainer from '@mui/material/TableContainer';
-import TablePagination from '@mui/material/TablePagination';
+import Container from '@mui/material/Container';
+import Stack from '@mui/material/Stack';
+import { Form, Input, Modal, Button, Row, Col, Select, Upload, InputNumber } from 'antd';
+const { TextArea } = Input;
+const { Option } = Select;
 
-import Scrollbar from 'src/components/scrollbar';
-import { deleteUser, getAllUsers } from 'src/api/user';
+import { productManagement } from "src/api/products";
+import { getAllBrand } from "src/api/brand";
+import { getAllCategory } from "src/api/category";
+import { addNewShoe } from "src/api/products";
+import Management from "../table";
 
-import TableNoData from '../table-no-data';
-import UserTableRow from '../user-table-row';
-import UserTableHead from '../user-table-head';
-import TableEmptyRows from '../table-empty-rows';
-import UserTableToolbar from '../user-table-toolbar';
-import { emptyRows, applyFilter, getComparator } from '../utils';
-import { Snackbar } from 'src/components/notification';
+// -----------------------------------------------------------------------------
 
-// ----------------------------------------------------------------------
-
-export default function ProductManagePage() {
-  const [page, setPage] = useState(0);
-
-  const [order, setOrder] = useState('asc');
-
-  const [orderBy, setOrderBy] = useState('name');
-
-  const [filterName, setFilterName] = useState('');
-
-  const [rowsPerPage, setRowsPerPage] = useState(5);
-
-  const [users, setUsers] = useState([]);
-
-  const [error, setError] = useState(false);
-
+export default function ProductManagerView() {
+  const [data, setData] = useState([]);
   const [count, setCount] = useState(0);
+  const [modalAdd, setModalAdd] = useState(false);
+  const [brand, setBrand] = useState([]);
+  const [category, setCategory] = useState([]);
+  const [values, setValues] = useState({});
+  const [form] = Form.useForm();
+
+  const handleAddNewShoe = () => {
+    setModalAdd(true);
+    form.resetFields();
+  }
+
+  const handleCancel = () => {
+    setModalAdd(false);
+    form.resetFields();
+  };
+
+  const handleFormChange = (allValues) => {
+    setValues({
+      ...values,
+      image: "",
+      ...allValues
+    })
+  }
+
+  const handleFormSubmit = async () => {
+    await addNewShoe(values);
+    setCount(count + 1);
+    setModalAdd(false);
+    form.resetFields();
+  };
 
   useEffect(() => {
-    const fetchdata = async() => {
-      const response = await getAllUsers();
-      setUsers(response.data);
+    const fetchdata = async () => {
+      const response = await productManagement();
+      const modifiedData = response.data.map(product => {
+        const { id, detail, ...rest } = product;
+        const modifiedDetails = detail.map(detailItem => {
+          const { id: detailId, ...detailRest } = detailItem;
+          return {
+            ...detailRest,
+            key: detailId
+          };
+        });
+        return {
+          ...rest,
+          key: id,
+          detail: modifiedDetails
+        };
+      });
+      setData(modifiedData);
+
+      const brandData = await getAllBrand();
+      setBrand(brandData.data);
+
+      const categoryData = await getAllCategory();
+      setCategory(categoryData.data);
     };
     fetchdata();
   }, [count]);
 
-  const handleSort = (event, id) => {
-    const isAsc = orderBy === id && order === 'asc';
-    if (id !== '') {
-      setOrder(isAsc ? 'desc' : 'asc');
-      setOrderBy(id);
-    }
-  };
-
-  const handleDelete = async (event, id) => {
-    const formData = {
-      "userid": id
-    };
-    try{
-      const result = await deleteUser(formData);
-      if (result.data.status === false) {
-        setError(true);
-        setTimeout(() => {
-          setError(false);
-        }, 2000);
-      }else{
-        setCount(count + 1);
-      }
-    }catch(e){
-      setError(true);
-      setTimeout(() => {
-        setError(false);
-      }, 2000);
-    }
-  };
-
-  const handleChangePage = (event, newPage) => {
-    setPage(newPage);
-  };
-
-  const handleChangeRowsPerPage = (event) => {
-    setPage(0);
-    setRowsPerPage(parseInt(event.target.value, 10));
-  };
-
-  const handleFilterByName = (event) => {
-    setPage(0);
-    setFilterName(event.target.value);
-  };
-
-  const dataFiltered = applyFilter({
-    inputData: users,
-    comparator: getComparator(order, orderBy),
-    filterName,
-  });
-
-  const notFound = !dataFiltered.length && !!filterName;
-
   return (
     <Container>
       <Stack direction="row" alignItems="center" justifyContent="space-between" mb={5}>
-        <Typography variant="h4">Product Management</Typography>
+        <Typography variant="h4">Order History</Typography>
+      </Stack>
+      <Stack direction="row" spacing={2} justifyContent="flex-end" alignItems="center">
+        <Button type="primary" onClick={() => { handleAddNewShoe() }}>
+          Add Shoe
+        </Button>
+      </Stack>
+      <Stack>
+        <Management data={data} count={count} setCount={setCount} />
       </Stack>
 
-      <Card>
-        <UserTableToolbar
-          filterName={filterName}
-          onFilterName={handleFilterByName}
-        />
-
-        <Scrollbar>
-          <TableContainer sx={{ overflow: 'unset' }}>
-            <Table sx={{ minWidth: 800 }}>
-              <UserTableHead
-                order={order}
-                orderBy={orderBy}
-                rowCount={users.length}
-                onRequestSort={handleSort}
-                headLabel={[
-                  { id: 'name', label: 'Name' },
-                  { id: 'email', label: 'Email' },
-                  { id: 'phonenumber', label: 'Phone' },
-                  { id: 'address', label: 'Address' },
-                  { id: 'gender', label: 'Gender', align: 'center' },
-                  { id: 'isdeleted', label: 'Status' },
-                ]}
-              />
-              <TableBody>
-                {dataFiltered
-                  .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                  .map((row) => (
-                    <UserTableRow
-                      key={row.id}
-                      id={row.id}
-                      name={row.name}
-                      status={row.isdeleted}
-                      email={row.email}
-                      phonenumber={row.phonenumber}
-                      address={row.address}
-                      gender={row.gender}
-                      role={row.role}
-                      isdeleted={row.isdeleted}
-                      handleDelete={(event) => handleDelete(event, row.id)}
-                    />
-                  ))}
-
-                <TableEmptyRows
-                  height={77}
-                  emptyRows={emptyRows(page, rowsPerPage, users.length)}
-                />
-
-                {notFound && <TableNoData query={filterName} />}
-              </TableBody>
-            </Table>
-          </TableContainer>
-        </Scrollbar>
-
-        <TablePagination
-          page={page}
-          component="div"
-          count={users.length}
-          rowsPerPage={rowsPerPage}
-          onPageChange={handleChangePage}
-          rowsPerPageOptions={[5, 10, 25]}
-          onRowsPerPageChange={handleChangeRowsPerPage}
-        />
-      </Card>
-      { error && <Snackbar
-          message="Xóa người dùng thất bại!"
-          type="error"
-        />}
+      <Modal
+        title="Add new shoe"
+        visible={modalAdd}
+        onCancel={handleCancel}
+        footer={null}
+        width={800}
+      >
+        <Form
+          form={form}
+          onFinish={handleFormSubmit}
+          onValuesChange={handleFormChange}
+          labelCol={{ span: 6 }}
+          wrapperCol={{ span: 20 }}
+          layout="horizontal"
+        >
+          <Row gutter={16}>
+            <Col span={12}>
+              <Form.Item label="Name" name="name" rules={[{ required: true, message: 'Please input the name!' }]}>
+                <Input />
+              </Form.Item>
+            </Col>
+            <Col span={12}>
+              <Form.Item label="Price" name="price" rules={[{ required: true, message: 'Please input the price!' }]}>
+                <InputNumber style={{ width: '100%' }} />
+              </Form.Item>
+            </Col>
+          </Row>
+          <Row gutter={16}>
+            <Col span={12}>
+              <Form.Item label="Description" name="description">
+                <TextArea rows={4} />
+              </Form.Item>
+            </Col>
+          </Row>
+          <Row gutter={16}>
+            <Col span={12}>
+              <Form.Item label="Image" name="image">
+                <Upload listType="picture" beforeUpload={() => false}>
+                  <Button>Select Image</Button>
+                </Upload>
+              </Form.Item>
+            </Col>
+            <Col span={12}>
+              <Form.Item label="Brand" name="brandid" rules={[{ required: true, message: 'Please select a brand!' }]}>
+                <Select placeholder="Select a brand">
+                  {
+                    brand?.map(brand => {
+                      return (
+                        <Option key={brand.id} value={brand.id}>{brand.name}</Option>
+                      )
+                    })
+                  }
+                </Select>
+              </Form.Item>
+            </Col>
+          </Row>
+          <Row gutter={16}>
+            <Col span={12}>
+              <Form.Item label="Category" name="category" rules={[{ required: true, message: 'Please select categories!' }]}>
+                <Select mode="multiple" placeholder="Select categories">
+                  {
+                    category?.map(category => {
+                      return (
+                        <Option key={category.id} value={category.id}>{category.name}</Option>
+                      )
+                    })
+                  }
+                </Select>
+              </Form.Item>
+            </Col>
+            <Col span={12}>
+              <Form.Item wrapperCol={{ offset: 6, span: 16 }}>
+                <Button type="primary" htmlType="submit">
+                  Save
+                </Button>
+              </Form.Item>
+            </Col>
+          </Row>
+        </Form>
+      </Modal>
     </Container>
   );
 }

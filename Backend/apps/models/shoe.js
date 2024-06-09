@@ -34,9 +34,9 @@ const Shoe = {
     },
 
     insertShoe: (formData, callback) => {
-        const query = `INSERT INTO "shoe" (name, description, price, quantity, image, color, size, brandid) 
-                       VALUES ($1, $2, $3, $4, $5, $6, $7, $8)`;
-        const values = [formData.name, formData.description, formData.price, formData.quantity, formData.image, formData.color, formData.size, formData.brandid];
+        const query = `INSERT INTO "shoe" (name, description, price, image, brandid) 
+                       VALUES ($1, $2, $3, $4, $5) RETURNING id`;
+        const values = [formData.name, formData.description, formData.price, formData.image, formData.brandid];
         databaseUtils.insert_uti(conn, callback, query, values);
     },
 
@@ -52,6 +52,24 @@ const Shoe = {
         const values = [id];
         databaseUtils.delete_uti(conn, callback, query, values);
     },
+
+    getAllItems: (callback) => {
+        const query = `SELECT * FROM "shoe"`;
+        databaseUtils.select_uti(conn, callback, query);
+    },
+
+    updateShoeDetail: (formData, callback) => {
+        const { id, color, size, quantity } = formData;
+        const query = `UPDATE "shoe_detail" SET "color" = $2, "size" = $3, "quantity" = $4 WHERE "id" = $1`;
+        const values = [id, color, size, quantity];
+        databaseUtils.update_uti(conn, callback, query, values);
+    },
+
+    insertShoeDetail: (formData, callback) => {
+        const query = `INSERT INTO "shoe_detail" (shoeid, color, size, quantity) VALUES ($1, $2, $3, $4) RETURNING id`;
+        const values = [formData.shoeid, formData.color, formData.size, formData.quantity];
+        databaseUtils.insert_uti(conn, callback, query, values);
+    }
 }
 
 module.exports = Shoe;

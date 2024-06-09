@@ -53,6 +53,28 @@ async function getItems(startIndex, endIndex) {
     }
 }
 
+async function getAllItems() {
+    return new Promise((resolve, reject) => {
+        Shoe.getAllItems((err, result) => {
+            if (err) return reject(err);
+            resolve(result);
+        });
+    })
+}
+
+async function getAllItemsDetail() {
+    try {
+        const shoes = await getAllItems();
+        const idList = shoes.map(shoe => shoe.id);
+        const items = await Promise.all(idList.map(async (id) => {
+            const detail = await getItemById(id);
+            return detail[0];
+        }))
+        return items;
+    } catch (error) {
+        throw new Error(error.message);
+    }
+}
 async function getItemById(id) {
     try {
         const shoe = await getItemAsync(id);
@@ -90,15 +112,6 @@ async function getItemDetailById(id) {
     }
 }
 
-async function addShoe(formData) {
-    return new Promise((resolve, reject) => {
-        Shoe.insertShoe(formData, (err, result) => {
-            if (err) reject(err);
-            resolve(result);
-        });
-    });
-}
-
 async function updateShoe(formData) {
     return new Promise((resolve, reject) => {
         Shoe.updateShoe(formData, (err, result) => {
@@ -117,11 +130,57 @@ async function deleteShoe(id) {
     })
 }
 
+async function updateShoeDetail(formData) {
+    return new Promise((resolve, reject) => {
+        Shoe.updateShoeDetail(formData, (err, result) => {
+            if (err) reject(err);
+            resolve(result);
+        })
+    })
+}
+
+async function insertShoe(formData) {
+    return await new Promise((resolve, reject) => {
+        Shoe.insertShoe(formData, (err, result) => {
+            if (err) reject(err);
+            resolve(result);
+        })
+    })
+}
+
+async function insertFullShoe(formData) {
+    try {
+        const shoe = await insertShoe(formData);
+        const shoeid = shoe.rows[0].id;
+        const categories = formData.category;
+        if (categories && categories.length > 0) {
+            categories.forEach(async (category) => {
+                await CategoryService.insertCategoryShoe(shoeid, category);
+            });
+        }
+        return true;
+    } catch (error) {
+        throw new Error(error.message);
+    }
+}
+
+async function insertShoeDetail(formData) {
+    return await new Promise((resolve, reject) => {
+        Shoe.insertShoeDetail(formData, (err, result) => {
+            if (err) reject(err);
+            resolve(result);
+        })
+    })
+}
+
 module.exports = {
     getItems,
     getItemById,
     getItemDetailById,
-    addShoe,
     updateShoe,
     deleteShoe,
+    getAllItemsDetail,
+    updateShoeDetail,
+    insertFullShoe,
+    insertShoeDetail,
 }

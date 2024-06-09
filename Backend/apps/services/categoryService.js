@@ -26,6 +26,28 @@ async function getCategoryName(shoeid) {
     return listCategory;
 }
 
+async function insertCategoryShoe(shoeid, category) {
+    return await new Promise((resolve, reject) => {
+        Category.insertCategoryShoe(shoeid, category, (err, result) => {
+            if (err) reject(err);
+            resolve(result);
+        })
+    })
+}
+
+async function getAllCategory(callback) {
+    return await new Promise((resolve, reject) => {
+        Category.getAllCategory((err, result) => {
+            if (err) {
+                return reject(err);
+            }
+            resolve(result);
+        })
+    })
+}
+
 module.exports = {
-    getCategoryName: getCategoryName,
+    getCategoryName,
+    insertCategoryShoe,
+    getAllCategory,
 }

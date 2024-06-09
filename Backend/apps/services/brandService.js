@@ -9,6 +9,18 @@ function getName(id, callback) {
     })
 }
 
+async function getAllBrand(callback) {
+    return await new Promise((resolve, reject) => {
+        Brand.getAllBrand((err, result) => {
+            if (err) {
+                return reject(err);
+            }
+            resolve(result);
+        })
+    })
+}
+
 module.exports = {
-    getName: getName,
+    getName,
+    getAllBrand,
 }

@@ -23,3 +23,59 @@ export async function productDetail(id) {
         return err.response;
     }
 }
+
+export async function productManagement() {
+    const token = getAuthToken();
+    try {
+        const response = await axios.get(`${API_URL}/admin/shoe`, {
+            headers: {
+                Authorization: token
+            }
+        });
+        return response;
+    } catch (err) {
+        return err.response;
+    }
+}
+
+export async function updateShoeDetail(formData) {
+    const token = getAuthToken();
+    try {
+        const response = await axios.put(`${API_URL}/admin/shoedetail`, formData, {
+            headers: {
+                Authorization: token
+            }
+        });
+        return response;
+    } catch (err) {
+        return err.response;
+    }
+}
+
+export async function addShoeDetail(formData) {
+    const token = getAuthToken();
+    try {
+        const response = await axios.post(`${API_URL}/admin/shoedetail`, formData, {
+            headers: {
+                Authorization: token
+            }
+        });
+        return response;
+    } catch (err) {
+        return err.response;
+    }
+}
+
+export async function addNewShoe(formData) {
+    const token = getAuthToken();
+    try {
+        const response = await axios.post(`${API_URL}/admin/shoe`, formData, {
+            headers: {
+                Authorization: token
+            }
+        });
+        return response;
+    } catch (err) {
+        return err.response;
+    }
+}

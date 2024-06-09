@@ -34,7 +34,7 @@ async function getItemById(req, res) {
 async function addShoe(req, res) {
     try {
         const formData = req.body;
-        await ShoeService.addShoe(formData);
+        const result = await ShoeService.insertFullShoe(formData);
         return res.status(200).json({ message: "Thêm sản phẩm thành công", state: true })
     } catch (err) {
         console.log(err);
@@ -63,6 +63,36 @@ async function deleteShoe(req, res) {
         return res.status(500).json({ message: "Không thể xóa" });
     }
 }
+async function getAllItemsDetail(req, res) {
+    try {
+        const result = await ShoeService.getAllItemsDetail();
+        return res.status(200).json(result);
+    } catch (error) {
+        return res.status(500).json({ message: error.message });
+    }
+}
+
+async function updateShoeDetail(req, res) {
+    try {
+        const formData = req.body;
+        await ShoeService.updateShoeDetail(formData);
+        return res.status(200).json({ message: "Cập nhật thành công", state: true })
+    } catch (err) {
+        console.log(err);
+        return res.status(500).json({ message: "Có lỗi xảy ra", state: false });
+    }
+}
+
+async function insertShoeDetail(req, res) {
+    try {
+        const formData = req.body;
+        await ShoeService.insertShoeDetail(formData);
+        return res.status(200).json({ message: "Them thanh cong", state: true })
+    } catch (err) {
+        console.log(err);
+        return res.status(500).json({ message: "Có lỗi xảy ra", state: false });
+    }
+}
 
 module.exports = {
     getItems,
@@ -70,4 +100,7 @@ module.exports = {
     addShoe,
     updateShoe,
     deleteShoe,
+    getAllItemsDetail,
+    updateShoeDetail,
+    insertShoeDetail,
 }

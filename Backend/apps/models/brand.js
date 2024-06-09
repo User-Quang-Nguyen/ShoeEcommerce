@@ -7,6 +7,11 @@ const Brand = {
         const query = `SELECT "name" FROM "brand" WHERE "id" = $1;`;
         const values = [id];
         databaseUtils.select_uti(conn, callback, query, values);
+    },
+
+    getAllBrand: (callback) => {
+        const query = `SELECT * FROM "brand";`;
+        databaseUtils.select_uti(conn, callback, query);
     }
 }
 

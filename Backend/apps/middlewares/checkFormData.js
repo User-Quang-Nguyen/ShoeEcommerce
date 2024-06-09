@@ -25,12 +25,12 @@ const addToCart = (req, res, next) => {
 }
 
 const addShoe = (req, res, next) => {
-    const { name, description, price, quantity, size } = req.body;
-    if (!name || !description || !price || !quantity || !size) {
+    const { name, description, price } = req.body;
+    if (!name || !description || !price) {
         return res.status(400).json({ message: "Thiếu thông tin", state: false })
     }
 
-    if (isNaN(price) || isNaN(quantity) || isNaN(size)) {
+    if (isNaN(price)) {
         return res.status(400).json({ message: "Giá, số lượng, size phải là số", state: false })
     }
 
