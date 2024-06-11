@@ -10,18 +10,23 @@ import { productManagement } from "src/api/products";
 import { getAllBrand } from "src/api/brand";
 import { getAllCategory } from "src/api/category";
 import { addNewShoe } from "src/api/products";
+import { Snackbar } from "src/components/notification";
 import Management from "../table";
 
 // -----------------------------------------------------------------------------
 
 export default function ProductManagerView() {
   const [data, setData] = useState([]);
+  const [filteredData, setFilteredData] = useState([]);
   const [count, setCount] = useState(0);
   const [modalAdd, setModalAdd] = useState(false);
   const [brand, setBrand] = useState([]);
   const [category, setCategory] = useState([]);
   const [values, setValues] = useState({});
+  const [showNotification, setShowNotification] = useState(false);
+  const [message, setMessage] = useState("");
   const [form] = Form.useForm();
+  const [search, setSearch] = useState("");
 
   const handleAddNewShoe = () => {
     setModalAdd(true);
@@ -42,10 +47,24 @@ export default function ProductManagerView() {
   }
 
   const handleFormSubmit = async () => {
-    await addNewShoe(values);
+    const result = await addNewShoe(values);
+    setMessage(result.data.message);
+    if (result.data.state === true) {
+      setShowNotification(true);
+      setTimeout(() => {
+        setShowNotification(false);
+      }, 2000);
+    }
     setCount(count + 1);
     setModalAdd(false);
     form.resetFields();
+  };
+
+  const handleSearchChange = (event) => {
+    const value = event.target.value;
+    setSearch(value);
+    const filtered = data.filter(product => product.name.toLowerCase().includes(value.toLowerCase()));
+    setFilteredData(filtered);
   };
 
   useEffect(() => {
@@ -65,8 +84,9 @@ export default function ProductManagerView() {
           key: id,
           detail: modifiedDetails
         };
-      });
+      }).sort((a, b) => a.key - b.key);
       setData(modifiedData);
+      setFilteredData(modifiedData);
 
       const brandData = await getAllBrand();
       setBrand(brandData.data);
@@ -82,15 +102,23 @@ export default function ProductManagerView() {
       <Stack direction="row" alignItems="center" justifyContent="space-between" mb={5}>
         <Typography variant="h4">Order History</Typography>
       </Stack>
-      <Stack direction="row" spacing={2} justifyContent="flex-end" alignItems="center">
-        <Button type="primary" onClick={() => { handleAddNewShoe() }}>
+      <Stack direction="row" spacing={2} justifyContent="space-between" alignItems="center">
+        <Input
+          placeholder="Search by name"
+          value={search}
+          onChange={handleSearchChange}
+          style={{ width: '300px' }}
+        />
+        <Button type="primary" onClick={handleAddNewShoe}>
           Add Shoe
         </Button>
       </Stack>
       <Stack>
-        <Management data={data} count={count} setCount={setCount} />
+        <Management data={filteredData} count={count} setCount={setCount} />
       </Stack>
-
+      {
+        showNotification ? <Snackbar message={message} /> : null
+      }
       <Modal
         title="Add new shoe"
         visible={modalAdd}

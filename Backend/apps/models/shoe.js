@@ -41,9 +41,9 @@ const Shoe = {
     },
 
     updateShoe: (formData, callback) => {
-        const { id, price, quantity, color, size } = formData;
-        const query = `UPDATE "shoe" SET "price" = $1, "quantity" = $2, "color" = $3, "size" = $4 WHERE "id" = $5`;
-        const values = [price, quantity, color, size, id]
+        const { shoeid, name, image, description, price } = formData;
+        const query = `UPDATE "shoe" SET "name" = $1, "image" = $2, "description" = $3, "price" = $4 WHERE "id" = $5`;
+        const values = [name, image, description, price, shoeid];
         databaseUtils.update_uti(conn, callback, query, values);
     },
 

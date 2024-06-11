@@ -79,3 +79,17 @@ export async function addNewShoe(formData) {
         return err.response;
     }
 }
+
+export async function changeShoe(formData) {
+    const token = getAuthToken();
+    try {
+        const response = await axios.put(`${API_URL}/admin/shoe`, formData, {
+            headers: {
+                Authorization: token
+            }
+        });
+        return response;
+    } catch (err) {
+        return err.response;
+    }
+}

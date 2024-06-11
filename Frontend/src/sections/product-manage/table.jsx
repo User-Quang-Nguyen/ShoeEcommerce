@@ -1,39 +1,53 @@
 import React, { useState } from 'react';
-import { Table, Form, Input, Modal, Space, Button, InputNumber } from 'antd';
+import { Table, Form, Input, Modal, Space, Button, InputNumber, Upload } from 'antd';
 import DetailTable from "./detail-table";
 import IconButton from '@mui/material/IconButton';
 import Iconify from 'src/components/iconify';
 
-import { addShoeDetail } from 'src/api/products';
+import { addShoeDetail, updateShoeDetail, changeShoe } from 'src/api/products';
 
 // ----------------------------------------------------------------------------------
 
 export default function Management({ data, count, setCount }) {
-  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [isAddModalVisible, setIsAddModalVisible] = useState(false);
+  const [isEditModalVisible, setIsEditModalVisible] = useState(false);
   const [shoeid, setShoeid] = useState(0);
-  const [form] = Form.useForm();
+  const [formAdd] = Form.useForm();
+  const [formEdit] = Form.useForm();
 
   const handleAddShoeDetail = (record) => {
-    setIsModalVisible(true);
+    setIsAddModalVisible(true);
     setShoeid(record.key);
-    form.resetFields();
+    formAdd.resetFields();
   };
 
   const handleEditShoe = (record) => {
-    console.log(record);
-  }
+    setIsEditModalVisible(true);
+    setShoeid(record.key);
+    formEdit.setFieldsValue(record);
+  };
 
-  const handleFormSubmit = async (values) => {
+  const handleAddFormSubmit = async (values) => {
     const formData = { shoeid, ...values };
-    const result = await addShoeDetail(formData);
+    await addShoeDetail(formData); // Add API call
     setCount(count + 1);
-    form.resetFields();
-    setIsModalVisible(false);
+    formAdd.resetFields();
+    setIsAddModalVisible(false);
+  };
+
+  const handleEditFormSubmit = async (values) => {
+    const formData = { shoeid, ...values };
+    await changeShoe(formData);
+    setCount(count + 1);
+    formEdit.resetFields();
+    setIsEditModalVisible(false);
   };
 
   const handleCancel = () => {
-    setIsModalVisible(false);
-    form.resetFields();
+    setIsAddModalVisible(false);
+    setIsEditModalVisible(false);
+    formAdd.resetFields();
+    formEdit.resetFields();
   };
 
   const columns = [
@@ -112,14 +126,14 @@ export default function Management({ data, count, setCount }) {
         dataSource={data}
       />
       <Modal
-        title="Add shoe detail"
-        visible={isModalVisible}
+        title="Add Shoe Detail"
+        visible={isAddModalVisible}
         onCancel={handleCancel}
         footer={null}
       >
         <Form
-          form={form}
-          onFinish={handleFormSubmit}
+          form={formAdd}
+          onFinish={handleAddFormSubmit}
           labelCol={{ span: 6 }}
           wrapperCol={{ span: 16 }}
           layout="horizontal"
@@ -136,6 +150,46 @@ export default function Management({ data, count, setCount }) {
           <Form.Item wrapperCol={{ offset: 6, span: 16 }}>
             <Button type="primary" htmlType="submit">
               Save
+            </Button>
+          </Form.Item>
+        </Form>
+      </Modal>
+      <Modal
+        title="Edit Shoe"
+        visible={isEditModalVisible}
+        onCancel={handleCancel}
+        footer={null}
+      >
+        <Form
+          form={formEdit}
+          onFinish={handleEditFormSubmit}
+          labelCol={{ span: 6 }}
+          wrapperCol={{ span: 16 }}
+          layout="horizontal"
+        >
+          <Form.Item label="Name" name="name" rules={[{ required: true, message: 'Please input the name!' }]}>
+            <Input />
+          </Form.Item>
+          <Form.Item label="Image" name="image">
+            <Upload>
+              <Button>Click to Upload</Button>
+            </Upload>
+          </Form.Item>
+          <Form.Item label="Description" name="description" rules={[{ required: true, message: 'Please input the description!' }]}>
+            <Input />
+          </Form.Item>
+          <Form.Item label="Price" name="price" rules={[{ required: true, message: 'Please input the price!' }]}>
+            <InputNumber style={{ width: '100%' }} />
+          </Form.Item>
+          <Form.Item label="Brand" name="brandname">
+            <Input disabled />
+          </Form.Item>
+          <Form.Item label="Category" name="category">
+            <Input disabled />
+          </Form.Item>
+          <Form.Item wrapperCol={{ offset: 6, span: 16 }}>
+            <Button type="primary" htmlType="submit">
+              Update
             </Button>
           </Form.Item>
         </Form>

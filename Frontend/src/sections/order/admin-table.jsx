@@ -74,19 +74,19 @@ export default function AdminOrderTable({ data }) {
         switch (tag) {
           case 1:
             color = 'red';
-            text = 'Đã hủy';
+            text = 'Cancelled';
             break;
           case 0:
             color = 'blue';
-            text = 'Đang giao hàng';
+            text = 'Delivering';
             break;
           case 2:
             color = 'green';
-            text = 'Thành công';
+            text = 'Success';
             break;
           default:
             color = 'gray';
-            text = 'Không xác định';
+            text = 'Unknown';
         }
 
         return (

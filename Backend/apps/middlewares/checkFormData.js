@@ -38,12 +38,12 @@ const addShoe = (req, res, next) => {
 }
 
 const updateShoe = (req, res, next) => {
-    const { id, price, quantity, color, size } = req.body;
-    if (!id || !price || !quantity || !color || !size) {
+    const { shoeid, name, description, price } = req.body;
+    if (!shoeid || !price || !name || !description) {
         return res.status(400).json({ message: "Không để trống thông tin", state: false })
     }
 
-    if (isNaN(id) || isNaN(price) || isNaN(quantity) || isNaN(size)) {
+    if (isNaN(shoeid) || isNaN(price)) {
         return res.status(400).json({ message: "Các trường là số", state: true })
     }
 
