@@ -6,6 +6,7 @@ import DashboardLayout from 'src/layouts/dashboard';
 import { ProtectedRouter } from 'src/routes/protected';
 
 export const IndexPage = lazy(() => import('src/pages/app'));
+export const DashboardPage = lazy(() => import('src/pages/dashboard'));
 export const OrderPage = lazy(() => import('src/pages/order'));
 export const UserPage = lazy(() => import('src/pages/user'));
 export const LoginPage = lazy(() => import('src/pages/login'));
@@ -44,16 +45,16 @@ export default function Router() {
           path: 'dashboard', 
           element: (
             <ProtectedRouter role={account.role} allowedRoles={[1]}>
-              <IndexPage />
+              <DashboardPage />
             </ProtectedRouter>
           ),
         },
         {
           path: 'manage',
           element: (
-            // <ProtectedRouter role={account.role} allowedRoles={[1]}>
+            <ProtectedRouter role={account.role} allowedRoles={[1]}>
               <ProductManagePage />
-            // </ProtectedRouter> 
+            </ProtectedRouter> 
           ),
         },
         { path: 'order', element: <OrderPage /> },
