@@ -57,12 +57,12 @@ export default function Management({ data, count, setCount }) {
       key: 'key',
     },
     {
-      title: 'Name',
+      title: 'Tên',
       dataIndex: 'name',
       key: 'name',
     },
     {
-      title: 'Image',
+      title: 'Hình ảnh',
       dataIndex: 'image',
       key: 'image',
       render: (text, record) => (
@@ -74,27 +74,27 @@ export default function Management({ data, count, setCount }) {
       ),
     },
     {
-      title: 'Description',
+      title: 'Mô tả',
       dataIndex: 'description',
       key: 'description',
     },
     {
-      title: 'Price',
+      title: 'Giá',
       dataIndex: 'price',
       key: 'price',
     },
     {
-      title: 'Brand',
+      title: 'Thương hiệu',
       dataIndex: 'brandname',
       key: 'brandname',
     },
     {
-      title: 'Category',
+      title: 'Thể loại',
       dataIndex: 'category',
       key: 'category',
     },
     {
-      title: 'Action',
+      title: 'Hành động',
       dataIndex: '',
       key: 'x',
       render: (text, record) => (
@@ -126,7 +126,7 @@ export default function Management({ data, count, setCount }) {
         dataSource={data}
       />
       <Modal
-        title="Add Shoe Detail"
+        title="Thêm chi tiết"
         visible={isAddModalVisible}
         onCancel={handleCancel}
         footer={null}
@@ -138,24 +138,24 @@ export default function Management({ data, count, setCount }) {
           wrapperCol={{ span: 16 }}
           layout="horizontal"
         >
-          <Form.Item label="Color" name="color" rules={[{ required: true, message: 'Please input the color!' }]}>
+          <Form.Item label="Màu" name="color" rules={[{ required: true, message: 'Nhập màu!' }]}>
             <Input />
           </Form.Item>
-          <Form.Item label="Size" name="size" rules={[{ required: true, message: 'Please input the size!' }]}>
+          <Form.Item label="Kích thước" name="size" rules={[{ required: true, message: 'Nhập kích thước!' }]}>
             <InputNumber style={{ width: '100%' }} />
           </Form.Item>
-          <Form.Item label="Quantity" name="quantity" rules={[{ required: true, message: 'Please input the quantity!' }]}>
+          <Form.Item label="Số lượng" name="quantity" rules={[{ required: true, message: 'Nhập số lượng!' }]}>
             <InputNumber style={{ width: '100%' }} />
           </Form.Item>
           <Form.Item wrapperCol={{ offset: 6, span: 16 }}>
             <Button type="primary" htmlType="submit">
-              Save
+              Lưu
             </Button>
           </Form.Item>
         </Form>
       </Modal>
       <Modal
-        title="Edit Shoe"
+        title="Sửa thông tin"
         visible={isEditModalVisible}
         onCancel={handleCancel}
         footer={null}
@@ -167,29 +167,29 @@ export default function Management({ data, count, setCount }) {
           wrapperCol={{ span: 16 }}
           layout="horizontal"
         >
-          <Form.Item label="Name" name="name" rules={[{ required: true, message: 'Please input the name!' }]}>
+          <Form.Item label="Tên" name="name" rules={[{ required: true, message: 'Tên sản phẩm!' }]}>
             <Input />
           </Form.Item>
-          <Form.Item label="Image" name="image">
+          <Form.Item label="Hình ảnh" name="image">
             <Upload>
-              <Button>Click to Upload</Button>
+              <Button>Chọn ảnh</Button>
             </Upload>
           </Form.Item>
-          <Form.Item label="Description" name="description" rules={[{ required: true, message: 'Please input the description!' }]}>
+          <Form.Item label="Mô tả" name="description" rules={[{ required: true, message: 'Nhập mô tả sản phẩm!' }]}>
             <Input />
           </Form.Item>
-          <Form.Item label="Price" name="price" rules={[{ required: true, message: 'Please input the price!' }]}>
+          <Form.Item label="Giá" name="price" rules={[{ required: true, message: 'Nhập số!' }]}>
             <InputNumber style={{ width: '100%' }} />
           </Form.Item>
-          <Form.Item label="Brand" name="brandname">
+          <Form.Item label="Thương hiệu" name="brandname">
             <Input disabled />
           </Form.Item>
-          <Form.Item label="Category" name="category">
+          <Form.Item label="Thể loại" name="category">
             <Input disabled />
           </Form.Item>
           <Form.Item wrapperCol={{ offset: 6, span: 16 }}>
             <Button type="primary" htmlType="submit">
-              Update
+              Cập nhật
             </Button>
           </Form.Item>
         </Form>

@@ -1,17 +1,16 @@
 import { Helmet } from 'react-helmet-async';
 
-import { BlogView } from 'src/sections/blog/view';
-
+import { ForbiddenView } from 'src/sections/error';
 // ----------------------------------------------------------------------
 
-export default function BlogPage() {
+export default function NotFoundPage() {
   return (
     <>
       <Helmet>
-        <title> Shoe Ecommerce </title>
+        <title> 403 Forbidden Error </title>
       </Helmet>
 
-      <BlogView />
+      <ForbiddenView />
     </>
   );
 }

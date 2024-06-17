@@ -84,19 +84,19 @@ export default function SignupView() {
       <Stack spacing={3}>
         <TextField 
           name="name" 
-          label="Full name" 
+          label="Họ và tên" 
           value={name} 
           onChange={handleNameChange} />
 
         <TextField 
           name="email" 
-          label="Email address" 
+          label="Email" 
           value={email} 
           onChange={handleEmailChange} />
 
         <TextField
           name="password"
-          label="Password"
+          label="Mật khẩu"
           type={showPassword ? 'text' : 'password'}
           value={password}
           onChange={handlePasswordChange}
@@ -121,7 +121,7 @@ export default function SignupView() {
         onClick={handleClick}
         sx = {{mt : 3}}
       >
-        Sign Up
+        Đăng ký
       </LoadingButton>
     </>
   );
@@ -152,12 +152,12 @@ export default function SignupView() {
             maxWidth: 420,
           }}
         >
-          <Typography variant="h4">Sign Up</Typography>
+          <Typography variant="h4">Đăng ký</Typography>
 
           <Typography variant="body2" sx={{ mt: 2, mb: 5 }}>
-            Do you already have an account?
+            Bạn đã có tài khoản ?
             <Link href = "/login"  variant="subtitle2" sx={{ ml: 0.5 }}>
-              Sign In
+              Đăng nhập
             </Link>
           </Typography>
           <Stack direction="row" spacing={2}>

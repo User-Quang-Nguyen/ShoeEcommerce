@@ -71,11 +71,11 @@ export default function UserTableRow({
 
         <TableCell>{address}</TableCell>
 
-        <TableCell>{gender == 0 ? "Male" : "Female"}</TableCell>
+        <TableCell>{gender == 0 ? "Nam" : "Nữ"}</TableCell>
 
         <TableCell>
           {
-            isdeleted ? <Label color="error">Disable</Label> : <Label color="success">Active</Label>
+            isdeleted ? <Label color="error">Vô hiệu hóa</Label> : <Label color="success">Hoạt động</Label>
           }
         </TableCell>
 

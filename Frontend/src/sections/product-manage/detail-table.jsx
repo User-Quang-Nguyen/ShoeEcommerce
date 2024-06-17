@@ -61,11 +61,11 @@ export default function DetailTable({ data, count, setCount }) {
     <>
       <Table dataSource={data} pagination={false}>
         <Column title="ID" dataIndex="key" key="key" />
-        <Column title="Color" dataIndex="color" key="color" />
-        <Column title="Size" dataIndex="size" key="size" />
-        <Column title="Quantity" dataIndex="quantity" key="quantity" />
+        <Column title="Màu" dataIndex="color" key="color" />
+        <Column title="Kích thước" dataIndex="size" key="size" />
+        <Column title="Số lượng" dataIndex="quantity" key="quantity" />
         <Column
-          title="Action"
+          title="Hành động"
           dataIndex="x"
           key="x"
           render={(text, record) => (
@@ -78,7 +78,7 @@ export default function DetailTable({ data, count, setCount }) {
         />
       </Table>
       <Modal
-        title="Edit Information"
+        title="Sửa thông tin"
         visible={isDialogVisible}
         onCancel={handleDialogClose}
         footer={null}
@@ -92,18 +92,18 @@ export default function DetailTable({ data, count, setCount }) {
           wrapperCol={{ span: 16 }}
           layout="horizontal"
         >
-          <Form.Item label="Color" name="color" rules={[{ required: true, message: 'Please input the color!' }]}>
+          <Form.Item label="Màu" name="color" rules={[{ required: true, message: 'Nhập màu!' }]}>
             <Input />
           </Form.Item>
-          <Form.Item label="Size" name="size" rules={[{ required: true, message: 'Please input the size!' }]}>
+          <Form.Item label="Kích thước" name="size" rules={[{ required: true, message: 'Nhập kích thước!' }]}>
             <InputNumber style={{ width: '100%' }} />
           </Form.Item>
-          <Form.Item label="Quantity" name="quantity" rules={[{ required: true, message: 'Please input quantity!' }]}>
+          <Form.Item label="Số lượng" name="quantity" rules={[{ required: true, message: 'Nhập số lượng!' }]}>
             <InputNumber style={{ width: '100%' }} />
           </Form.Item>
           <Form.Item wrapperCol={{ offset: 6, span: 16 }}>
             <Button type="primary" htmlType="submit">
-              Save
+              Lưu
             </Button>
           </Form.Item>
         </Form>

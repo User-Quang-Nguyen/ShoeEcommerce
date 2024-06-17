@@ -95,9 +95,9 @@ export default function ShopProductCard({ product, id }) {
         </Link>
 
         <Stack direction="row" alignItems="center" justifyContent="space-between">
-          <IconButton color="primary" aria-label="add to shopping cart" onClick={onChange}>
+          {/* <IconButton color="primary" aria-label="add to shopping cart" onClick={onChange}>
             <AddShoppingCartIcon onChange = {onChange}/>
-          </IconButton>
+          </IconButton> */}
           {renderPrice}
         </Stack>
       </Stack>

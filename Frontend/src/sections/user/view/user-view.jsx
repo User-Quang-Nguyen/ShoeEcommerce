@@ -153,12 +153,12 @@ export default function UserPage() {
                 onRequestSort={handleSort}
                 onSelectAllClick={handleSelectAllClick}
                 headLabel={[
-                  { id: 'name', label: 'Name' },
+                  { id: 'name', label: 'Họ và tên' },
                   { id: 'email', label: 'Email' },
-                  { id: 'phonenumber', label: 'Phone' },
-                  { id: 'address', label: 'Address' },
-                  { id: 'gender', label: 'Gender', align: 'center' },
-                  { id: 'isdeleted', label: 'Status' },
+                  { id: 'phonenumber', label: 'Số điện thoại' },
+                  { id: 'address', label: 'Địa chỉ' },
+                  { id: 'gender', label: 'Giới tính', align: 'center' },
+                  { id: 'isdeleted', label: 'Trạng thái' },
                 ]}
               />
               <TableBody>

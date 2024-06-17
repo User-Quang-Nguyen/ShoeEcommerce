@@ -17,18 +17,14 @@ import { getAccount } from 'src/redux/action';
 
 const MENU_OPTIONS = [
   {
-    label: 'Home',
+    label: 'Trang chủ',
     icon: 'eva:home-fill',
     path: '/',
   },
   {
-    label: 'Profile',
+    label: 'Trang cá nhân',
     icon: 'eva:person-fill',
     path: '/profile',
-  },
-  {
-    label: 'Settings',
-    icon: 'eva:settings-2-fill',
   },
 ];
 
@@ -129,7 +125,7 @@ export default function AccountPopover() {
           onClick={handleClose}
           sx={{ typography: 'body2', color: 'error.main', py: 1.5 }}
         >
-          Logout
+          Đăng xuất
         </MenuItem>
       </Popover>
     </>

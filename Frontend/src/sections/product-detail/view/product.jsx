@@ -14,6 +14,8 @@ import { Snackbar } from "src/components/notification";
 
 import 'src/global.css';
 
+// ------------------------------------------------------------------------
+
 export default function ProductDetail() {
   const [searchParams] = useSearchParams();
   const productId = searchParams.get('id');
@@ -120,7 +122,7 @@ export default function ProductDetail() {
       <Typography variant="h4" sx={{
         mb: 5
       }}>
-        Product Detail
+        Chi tiết sản phẩm
       </Typography>
 
       {showNotification && (
@@ -149,13 +151,13 @@ export default function ProductDetail() {
           </Grid>
           <Grid item xs={12} sm={6}>
             <Item>
-              Category: {infor
+              Thể loại: {infor
                 ?.category.join(', ')}
             </Item>
           </Grid>
           <Grid item xs={12} sm={6}>
             <Item>
-              Price: {infor
+              Giá: {infor
                 ?.price} $
             </Item>
           </Grid>
@@ -165,7 +167,7 @@ export default function ProductDetail() {
           <Grid item xs={12} sm={6}>
             <Item>{infor && (
                 <div>
-                  <h3>Color:</h3>
+                  <h3>Màu:</h3>
                   {infor
                     .detail
                     .reduce((uniqueColors, detail) => {
@@ -190,7 +192,7 @@ export default function ProductDetail() {
             <Item>
               {selectedColor && (
                 <div>
-                  <h3>Size:</h3>
+                  <h3>Kích thước:</h3>
                   {availableSizes.map((size) => (
                     <Button
                       key={size}
@@ -211,7 +213,7 @@ export default function ProductDetail() {
             <Item>
               {selectedSize && (
                 <div>
-                  <h3>Quantity:</h3>
+                  <h3>Số lượng:</h3>
                   <div
                     style={{
                     display: 'flex',
@@ -232,12 +234,12 @@ export default function ProductDetail() {
                       width: '50px',
                     }}/>
                       <Button sx={{ fontSize: '1.5rem' }} onClick={handleIncreaseQuantity}>+</Button>
-                        <p>Trong kho con: {quan}</p>
+                        <p>Số lượng trong kho: {quan}</p>
                   </div>
                   <Button
                     onClick={addTo_Cart}
                     sx={{ mt: 2, mx: 'auto', display: 'block' }}
-                    variant="contained">Add To Cart</Button>
+                    variant="contained">Thêm vào giỏ</Button>
                 </div>
               )}
             </Item>

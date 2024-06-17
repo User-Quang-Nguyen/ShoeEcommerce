@@ -4,7 +4,7 @@ import { OrderView } from 'src/sections/order/view';
 
 // ----------------------------------------------------------------------
 
-export default function BlogPage() {
+export default function OrderPage() {
   return (
     <>
       <Helmet>

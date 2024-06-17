@@ -44,7 +44,7 @@ export default function OrderView() {
         alignItems="center"
         justifyContent="space-between"
         mb={5}>
-        <Typography variant="h4">Order History</Typography>
+        <Typography variant="h4">Lịch sử đặt hàng</Typography>
       </Stack>
       {
         role == 0 ? <Stack>

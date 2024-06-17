@@ -94,13 +94,13 @@ export default function LoginView() {
       <Stack spacing={3}>
         <TextField 
           name="email" 
-          label="Email address" 
+          label="Email" 
           value={email} 
           onChange={handleEmailChange} />
 
         <TextField
           name="password"
-          label="Password"
+          label="Mật khẩu"
           type={showPassword ? 'text' : 'password'}
           value={password}
           onChange={handlePasswordChange}
@@ -118,7 +118,7 @@ export default function LoginView() {
 
       <Stack direction="row" alignItems="center" justifyContent="flex-end" sx={{ my: 3 }}>
         <Link variant="subtitle2" underline="hover">
-          Forgot password?
+          Quên mật khẩu?
         </Link>
       </Stack>
 
@@ -130,7 +130,7 @@ export default function LoginView() {
         color="inherit"
         onClick={handleClick}
       >
-        Login
+        Đăng nhập
       </LoadingButton>
     </>
   );
@@ -161,12 +161,12 @@ export default function LoginView() {
             maxWidth: 420,
           }}
         >
-          <Typography variant="h4">Sign In</Typography>
+          <Typography variant="h4">Đăng nhập</Typography>
 
           <Typography variant="body2" sx={{ mt: 2, mb: 5 }}>
-            Don’t have an account?
+            Bạn chưa có tài khoản ?
             <Link href = "/signup" variant="subtitle2" sx={{ ml: 0.5 }}>
-              Sign Up
+              Đăng ký
             </Link>
           </Typography>
 

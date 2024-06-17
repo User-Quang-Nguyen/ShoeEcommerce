@@ -100,17 +100,17 @@ export default function ProductManagerView() {
   return (
     <Container>
       <Stack direction="row" alignItems="center" justifyContent="space-between" mb={5}>
-        <Typography variant="h4">Order History</Typography>
+        <Typography variant="h4">Quản lý sản phẩm</Typography>
       </Stack>
       <Stack direction="row" spacing={2} justifyContent="space-between" alignItems="center">
         <Input
-          placeholder="Search by name"
+          placeholder="Tìm kiếm..."
           value={search}
           onChange={handleSearchChange}
           style={{ width: '300px' }}
         />
         <Button type="primary" onClick={handleAddNewShoe}>
-          Add Shoe
+          Thêm sản phẩm
         </Button>
       </Stack>
       <Stack>
@@ -120,7 +120,7 @@ export default function ProductManagerView() {
         showNotification ? <Snackbar message={message} /> : null
       }
       <Modal
-        title="Add new shoe"
+        title="Thêm giày mới"
         visible={modalAdd}
         onCancel={handleCancel}
         footer={null}
@@ -136,34 +136,34 @@ export default function ProductManagerView() {
         >
           <Row gutter={16}>
             <Col span={12}>
-              <Form.Item label="Name" name="name" rules={[{ required: true, message: 'Please input the name!' }]}>
+              <Form.Item label="Tên" name="name" rules={[{ required: true, message: 'Tên sản phẩm!' }]}>
                 <Input />
               </Form.Item>
             </Col>
             <Col span={12}>
-              <Form.Item label="Price" name="price" rules={[{ required: true, message: 'Please input the price!' }]}>
+              <Form.Item label="Giá" name="price" rules={[{ required: true, message: 'Giá sản phẩm!' }]}>
                 <InputNumber style={{ width: '100%' }} />
               </Form.Item>
             </Col>
           </Row>
           <Row gutter={16}>
             <Col span={12}>
-              <Form.Item label="Description" name="description">
+              <Form.Item label="Mô tả" name="description">
                 <TextArea rows={4} />
               </Form.Item>
             </Col>
           </Row>
           <Row gutter={16}>
             <Col span={12}>
-              <Form.Item label="Image" name="image">
+              <Form.Item label="Hình ảnh" name="image">
                 <Upload listType="picture" beforeUpload={() => false}>
-                  <Button>Select Image</Button>
+                  <Button>Chọn tệp</Button>
                 </Upload>
               </Form.Item>
             </Col>
             <Col span={12}>
-              <Form.Item label="Brand" name="brandid" rules={[{ required: true, message: 'Please select a brand!' }]}>
-                <Select placeholder="Select a brand">
+              <Form.Item label="Thương hiệu" name="brandid" rules={[{ required: true, message: 'Thương hiệu sản phẩm!' }]}>
+                <Select placeholder="Chọn một thương hiệu">
                   {
                     brand?.map(brand => {
                       return (
@@ -177,8 +177,8 @@ export default function ProductManagerView() {
           </Row>
           <Row gutter={16}>
             <Col span={12}>
-              <Form.Item label="Category" name="category" rules={[{ required: true, message: 'Please select categories!' }]}>
-                <Select mode="multiple" placeholder="Select categories">
+              <Form.Item label="Thể loại" name="category" rules={[{ required: true, message: 'Chọn nhiều loại!' }]}>
+                <Select mode="multiple" placeholder="Chọn thể loại">
                   {
                     category?.map(category => {
                       return (
@@ -192,7 +192,7 @@ export default function ProductManagerView() {
             <Col span={12}>
               <Form.Item wrapperCol={{ offset: 6, span: 16 }}>
                 <Button type="primary" htmlType="submit">
-                  Save
+                  Lưu
                 </Button>
               </Form.Item>
             </Col>

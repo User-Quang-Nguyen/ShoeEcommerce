@@ -144,10 +144,10 @@ export default function CartView() {
   return (
     <Container>
       <Stack direction="row" alignItems="center" justifyContent="space-between" mb={5}>
-        <Typography variant="h4">Cart</Typography>
+        <Typography variant="h4">Giỏ hàng</Typography>
       </Stack>
       {error ? (
-        <p>Not logged in yet</p>
+        <p>Bạn chưa đăng nhập</p>
       ) : (
         <Stack>
           <CartTable

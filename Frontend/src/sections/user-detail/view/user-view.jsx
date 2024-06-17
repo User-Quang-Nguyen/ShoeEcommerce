@@ -44,11 +44,11 @@ export default function UserView() {
       setPhone(response.data.phonenumber);
       setAddress(response.data.address);
       if (response.data.gender === 1) {
-        setGender('Female');
+        setGender('Nữ');
       } else if (response.data.gender === 0) {
-        setGender('Male');
+        setGender('Nam');
       } else if (response.data.gender === 2) {
-        setGender('Other');
+        setGender('Khác');
       }
     };
     fetchdata();
@@ -96,12 +96,11 @@ export default function UserView() {
         alignItems="center"
         justifyContent="space-between"
         mb={5}>
-        <Typography variant="h4">Hi {name}
-          !</Typography>
+        <Typography variant="h4">Xin chào {name} ✌️✌️✌️!!!</Typography>
       </Stack>
 
       <Stack>
-        <Card title="Profile" style={{
+        <Card title="Trang cá nhân" style={{
           fontWeight: 'bold'
         }}>
           <Row>
@@ -115,12 +114,12 @@ export default function UserView() {
                 marginBottom: '20px'
               }}>
                 {isEditing
-                  ? 'Save'
-                  : 'Edit'}
+                  ? 'Lưu'
+                  : 'Chỉnh sửa'}
               </Button>
               <List>
                 <List.Item style={itemStyle}>
-                  <span style={labelStyle}>Full Name</span>
+                  <span style={labelStyle}>Họ và tên</span>
                   {isEditing
                     ? (<Input
                       style={inputStyle}
@@ -144,7 +143,7 @@ export default function UserView() {
                     )}
                 </List.Item>
                 <List.Item style={itemStyle}>
-                  <span style={labelStyle}>Phone Number</span>
+                  <span style={labelStyle}>Số điện thoại</span>
                   {isEditing
                     ? (<Input
                       style={inputStyle}
@@ -156,7 +155,7 @@ export default function UserView() {
                     )}
                 </List.Item>
                 <List.Item style={itemStyle}>
-                  <span style={labelStyle}>Address</span>
+                  <span style={labelStyle}>Địa chỉ</span>
                   {isEditing
                     ? (<Input
                       style={inputStyle}
@@ -168,16 +167,16 @@ export default function UserView() {
                     )}
                 </List.Item>
                 <List.Item style={itemStyle}>
-                  <span style={labelStyle}>Gender</span>
+                  <span style={labelStyle}>Giới tính</span>
                   {isEditing
                     ? (
                       <Select
                         style={inputStyle}
                         value={gender}
                         onChange={(value) => setGender(value)}>
-                        <Option value="0">Male</Option>
-                        <Option value="1">Female</Option>
-                        <Option value="2">Other</Option>
+                        <Option value="0">Nam</Option>
+                        <Option value="1">Nữ</Option>
+                        <Option value="2">Khác</Option>
                       </Select>
                     )
                     : (

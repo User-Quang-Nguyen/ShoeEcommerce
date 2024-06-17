@@ -5,7 +5,6 @@ import { useSelector } from 'react-redux';
 import DashboardLayout from 'src/layouts/dashboard';
 import { ProtectedRouter } from 'src/routes/protected';
 
-export const IndexPage = lazy(() => import('src/pages/app'));
 export const DashboardPage = lazy(() => import('src/pages/dashboard'));
 export const OrderPage = lazy(() => import('src/pages/order'));
 export const UserPage = lazy(() => import('src/pages/user'));
@@ -17,6 +16,7 @@ export const UserInforPage = lazy(() => import('src/pages/profile'));
 export const ProductManagePage = lazy(() => import('src/pages/product-manage'));
 export const CartPage = lazy(() => import('src/pages/cart'));
 export const Page404 = lazy(() => import('src/pages/page-not-found'));
+export const Page403 = lazy(() => import('src/pages/forbidden'));
 
 // ----------------------------------------------------------------------
 
@@ -74,6 +74,10 @@ export default function Router() {
     {
       path: '404',
       element: <Page404 />,
+    },
+    {
+      path: '403',
+      element: <Page403 />,
     },
     {
       path: '*',

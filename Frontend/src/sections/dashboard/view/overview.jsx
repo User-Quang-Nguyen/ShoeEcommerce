@@ -10,7 +10,7 @@ import { getDayOnMonth, getMonthonYear, getRevenueCanceled, getRevenueDaily, get
 
 export default function Dashboard () {
   const [selectedYear, setSelectedYear] = useState(new Date().getFullYear());
-  const [selectedMonth, setSelectedMonth] = useState(new Date().getMonth() + 1); // getMonth() returns 0-11
+  const [selectedMonth, setSelectedMonth] = useState(new Date().getMonth() + 1);
   const [timePeriod, setTimePeriod] = useState('month');
   const [daily, setDaily] = useState(0);
   const [week, setWeek] = useState(0);
@@ -21,55 +21,7 @@ export default function Dashboard () {
   const [monthData, setMonthData] = useState([]);
   const [yearData, setYearData] = useState([]);
   const [count, setCount] = useState(0);
-  // Sample data for different periods
-  const generateMonthData = () => Array.from({ length: 30 }, (_, i) => ({ name: `Day ${i + 1}`, revenue: Math.floor(Math.random() * 5000) + 1000 }));
 
-  const revenueData = {
-    month: {
-      '1': generateMonthData(),
-      '2': generateMonthData(),
-      '3': generateMonthData(),
-      '4': generateMonthData(),
-      '5': generateMonthData(),
-      '6': generateMonthData(),
-      '7': generateMonthData(),
-      '8': generateMonthData(),
-      '9': generateMonthData(),
-      '10': generateMonthData(),
-      '11': generateMonthData(),
-      '12': generateMonthData(),
-    },
-    year: {
-      '2022': [
-        { name: 'Jan', revenue: 48000 },
-        { name: 'Feb', revenue: 43000 },
-        { name: 'Mar', revenue: 47000 },
-        { name: 'Apr', revenue: 52000 },
-        { name: 'May', revenue: 58000 },
-        { name: 'Jun', revenue: 61000 },
-        { name: 'Jul', revenue: 69000 },
-        { name: 'Aug', revenue: 72000 },
-        { name: 'Sep', revenue: 75000 },
-        { name: 'Oct', revenue: 80000 },
-        { name: 'Nov', revenue: 82000 },
-        { name: 'Dec', revenue: 87000 },
-      ],
-      '2023': [
-        { name: 'Jan', revenue: 50000 },
-        { name: 'Feb', revenue: 45000 },
-        { name: 'Mar', revenue: 48000 },
-        { name: 'Apr', revenue: 53000 },
-        { name: 'May', revenue: 59000 },
-        { name: 'Jun', revenue: 62000 },
-        { name: 'Jul', revenue: 70000 },
-        { name: 'Aug', revenue: 73000 },
-        { name: 'Sep', revenue: 76000 },
-        { name: 'Oct', revenue: 81000 },
-        { name: 'Nov', revenue: 83000 },
-        { name: 'Dec', revenue: 88000 },
-      ],
-    },
-  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -110,41 +62,41 @@ export default function Dashboard () {
       <Row gutter={16}>
         <Col span={8}>
           <Card>
-            <Statistic title="Orders Today" value={daily} />
+            <Statistic title="Đơn hàng hôm nay" value={daily} />
           </Card>
         </Col>
         <Col span={8}>
           <Card>
-            <Statistic title="Orders This Week" value={week} />
+            <Statistic title="Đơn đặt hàng trong tuần này" value={week} />
           </Card>
         </Col>
         <Col span={8}>
           <Card>
-            <Statistic title="Orders This Month" value={month} />
+            <Statistic title="Đơn đặt hàng trong tháng này" value={month} />
           </Card>
         </Col>
       </Row>
       <Row gutter={16} style={{ marginTop: 16 }}>
         <Col span={8}>
           <Card>
-            <Statistic title="Pending Orders" value={pending} />
+            <Statistic title="Đang chờ xử lý" value={pending} />
           </Card>
         </Col>
         <Col span={8}>
           <Card>
-            <Statistic title="Canceled Orders" value={canceled} />
+            <Statistic title="Đã hủy" value={canceled} />
           </Card>
         </Col>
         <Col span={8}>
           <Card>
-            <Statistic title="Successful Orders" value={success} />
+            <Statistic title="Thành công" value={success} />
           </Card>
         </Col>
       </Row>
       <Row gutter={16} style={{ marginTop: 16 }}>
         <Col span={24}>
           <Card
-            title="Revenue Over Time"
+            title="Doanh thu theo thời gian"
             extra={
               <>
                 <Select
@@ -163,7 +115,7 @@ export default function Dashboard () {
                     style={{ width: 120, marginRight: 16 }}
                   >
                     {[...Array(12).keys()].map(i => (
-                      <Option key={i + 1} value={i + 1}>{`Month ${i + 1}`}</Option>
+                      <Option key={i + 1} value={i + 1}>{`Tháng ${i + 1}`}</Option>
                     ))}
                   </Select>
                 )}
@@ -178,8 +130,8 @@ export default function Dashboard () {
               }}
               style={{ marginBottom: 16 }}
             >
-              <Radio.Button value="month">Month</Radio.Button>
-              <Radio.Button value="year">Year</Radio.Button>
+              <Radio.Button value="month">Tháng</Radio.Button>
+              <Radio.Button value="year">Năm</Radio.Button>
             </Radio.Group>
             <ResponsiveContainer width="100%" height={300}>
               <LineChart

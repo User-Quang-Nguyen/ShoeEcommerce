@@ -5,11 +5,11 @@ import {Button, Table} from 'antd';
 export default function CartTable({handleDecrement, handleIncrement, handleDelete, data, quantities}) {
   const columns = [
     {
-      title: 'Name',
+      title: 'Tên sản phẩm',
       dataIndex: 'name',
       key: 'name'
     }, {
-      title: 'Image',
+      title: 'Hình ảnh',
       dataIndex: 'image',
       key: 'image',
       render: (text) => <img
@@ -20,15 +20,15 @@ export default function CartTable({handleDecrement, handleIncrement, handleDelet
           height: '50px'
         }}/>
     }, {
-      title: 'Description',
+      title: 'Mô tả',
       dataIndex: 'description',
       key: 'description'
     }, {
-      title: 'Price',
+      title: 'Giá',
       dataIndex: 'price',
       key: 'price'
     }, {
-      title: 'Quantity',
+      title: 'Số lượng',
       dataIndex: 'quantity',
       key: 'quantity',
       render: (_, record) => (
@@ -45,19 +45,19 @@ export default function CartTable({handleDecrement, handleIncrement, handleDelet
         </div>
       )
     }, {
-      title: 'More infor',
+      title: 'Thông tin thêm',
       dataIndex: 'more',
       key: 'more'
     }, {
-      title: 'Brand',
+      title: 'Thương hiệu',
       dataIndex: 'brandname',
       key: 'brandname'
     }, {
-      title: 'Category',
+      title: 'Thể loại',
       dataIndex: 'category',
       key: 'category'
     }, {
-      title: 'Action',
+      title: 'Hành động',
       dataIndex: '',
       key: 'x',
       render: (_, record) => <a onClick={() => {handleDelete(record)}}>Delete</a>

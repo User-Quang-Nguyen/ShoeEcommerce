@@ -54,17 +54,17 @@ export default function OrderTable({ data }) {
       key: 'key',
     },
     {
-      title: 'Total',
+      title: 'Tổng tiền',
       dataIndex: 'total',
       key: 'total',
     },
     {
-      title: 'Created At',
+      title: 'Thời gian',
       dataIndex: 'createdat',
       key: 'createdat',
     },
     {
-      title: 'Tags',
+      title: 'Trạng thái',
       key: 'status',
       dataIndex: 'status',
       render: (tag) => {
@@ -74,15 +74,15 @@ export default function OrderTable({ data }) {
         switch (tag) {
           case 1:
             color = 'red';
-            text = 'Cancelled';
+            text = 'Đã hủy';
             break;
           case 0:
             color = 'blue';
-            text = 'Delivering';
+            text = 'Đang giao hàng';
             break;
           case 2:
             color = 'green';
-            text = 'Success';
+            text = 'Thành công';
             break;
           default:
             color = 'gray';
@@ -97,7 +97,7 @@ export default function OrderTable({ data }) {
       },
     },
     {
-      title: 'Action',
+      title: 'Hành động',
       dataIndex: '',
       key: 'x',
       render: (text, record) => {
@@ -114,7 +114,7 @@ export default function OrderTable({ data }) {
                 }}
                 // onMouseLeave={() => setHoveredRecord(null)}
               >
-                Update
+                Cập nhật
               </a>
             </Dropdown>
           );

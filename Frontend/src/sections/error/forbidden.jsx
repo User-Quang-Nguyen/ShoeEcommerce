@@ -9,7 +9,7 @@ import Logo from 'src/components/logo';
 
 // ----------------------------------------------------------------------
 
-export default function NotFoundView() {
+export default function ForbiddenView() {
   const renderHeader = (
     <Box
       component="header"
@@ -49,12 +49,12 @@ export default function NotFoundView() {
           </Typography>
 
           <Typography sx={{ color: 'text.secondary' }}>
-          Xin lỗi, chúng tôi không thể tìm thấy trang bạn đang tìm kiếm. Có lẽ bạn đã gõ nhầm URL? Hãy chắc chắn để kiểm tra chính tả.
+          Xin lỗi, bạn không có quyền truy cập địa chỉ này !
           </Typography>
 
           <Box
             component="img"
-            src="/assets/illustrations/404.jpg"
+            src="/assets/illustrations/403.jpg"
             sx={{
               mx: 'auto',
               height: 260,
