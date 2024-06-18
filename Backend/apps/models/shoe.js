@@ -69,6 +69,12 @@ const Shoe = {
         const query = `INSERT INTO "shoe_detail" (shoeid, color, size, quantity) VALUES ($1, $2, $3, $4) RETURNING id`;
         const values = [formData.shoeid, formData.color, formData.size, formData.quantity];
         databaseUtils.insert_uti(conn, callback, query, values);
+    },
+
+    fullTextSearch: (key, callback) => {
+        const query = `SELECT * FROM shoe WHERE to_tsvector('english', name || ' ' || description) @@ to_tsquery($1);`;
+        const values = [key];
+        databaseUtils.select_uti(conn, callback, query, values);
     }
 }
 
