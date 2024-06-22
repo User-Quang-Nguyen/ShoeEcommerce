@@ -97,6 +97,11 @@ export default function AdminOrderTable({ data }) {
       },
     },
     {
+      title: 'Địa chỉ',
+      dataIndex: 'address',
+      key: 'address',
+    },
+    {
       title: 'Thời gian',
       dataIndex: 'createdat',
       key: 'createdat',

@@ -1,0 +1,73 @@
+Date : 2024-06-22 21:08:39
+Directory : d:\Learn\20232_DATN\Code\Backend\apps
+Total : 42 files,  2070 codes, 16 comments, 257 blanks, all 2343 lines
+
+Languages
++------------+------------+------------+------------+------------+------------+
+| language   | files      | code       | comment    | blank      | total      |
++------------+------------+------------+------------+------------+------------+
+| JavaScript |         42 |      2,070 |         16 |        257 |      2,343 |
++------------+------------+------------+------------+------------+------------+
+
+Directories
++-------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| path                                                                    | files      | code       | comment    | blank      | total      |
++-------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| .                                                                       |         42 |      2,070 |         16 |        257 |      2,343 |
+| controllers                                                             |          8 |        505 |          1 |         48 |        554 |
+| middlewares                                                             |          4 |        176 |          1 |         28 |        205 |
+| models                                                                  |          7 |        311 |          0 |         56 |        367 |
+| repository                                                              |          1 |         58 |          6 |          4 |         68 |
+| routes                                                                  |         10 |         95 |          0 |         19 |        114 |
+| services                                                                |          8 |        799 |          2 |         86 |        887 |
+| utils                                                                   |          4 |        126 |          6 |         16 |        148 |
++-------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+
+Files
++-------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| filename                                                                | language   | code       | comment    | blank      | total      |
++-------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| d:\Learn\20232_DATN\Code\Backend\apps\controllers\authController.js     | JavaScript |         55 |          0 |          3 |         58 |
+| d:\Learn\20232_DATN\Code\Backend\apps\controllers\brandController.js    | JavaScript |         10 |          0 |          1 |         11 |
+| d:\Learn\20232_DATN\Code\Backend\apps\controllers\cartController.js     | JavaScript |         77 |          1 |          9 |         87 |
+| d:\Learn\20232_DATN\Code\Backend\apps\controllers\categoryController.js | JavaScript |         12 |          0 |          2 |         14 |
+| d:\Learn\20232_DATN\Code\Backend\apps\controllers\orderController.js    | JavaScript |        124 |          0 |         10 |        134 |
+| d:\Learn\20232_DATN\Code\Backend\apps\controllers\revenueController.js  | JavaScript |         79 |          0 |          9 |         88 |
+| d:\Learn\20232_DATN\Code\Backend\apps\controllers\shoeController.js     | JavaScript |         97 |          0 |          9 |        106 |
+| d:\Learn\20232_DATN\Code\Backend\apps\controllers\userController.js     | JavaScript |         51 |          0 |          5 |         56 |
+| d:\Learn\20232_DATN\Code\Backend\apps\middlewares\checkBanner.js        | JavaScript |         22 |          0 |          3 |         25 |
+| d:\Learn\20232_DATN\Code\Backend\apps\middlewares\checkFormData.js      | JavaScript |         67 |          1 |         14 |         82 |
+| d:\Learn\20232_DATN\Code\Backend\apps\middlewares\checkLogin.js         | JavaScript |         28 |          0 |          3 |         31 |
+| d:\Learn\20232_DATN\Code\Backend\apps\middlewares\validation.js         | JavaScript |         59 |          0 |          8 |         67 |
+| d:\Learn\20232_DATN\Code\Backend\apps\models\brand.js                   | JavaScript |         15 |          0 |          3 |         18 |
+| d:\Learn\20232_DATN\Code\Backend\apps\models\cart.js                    | JavaScript |         56 |          0 |         11 |         67 |
+| d:\Learn\20232_DATN\Code\Backend\apps\models\category.js                | JavaScript |         25 |          0 |          5 |         30 |
+| d:\Learn\20232_DATN\Code\Backend\apps\models\order.js                   | JavaScript |         40 |          0 |          8 |         48 |
+| d:\Learn\20232_DATN\Code\Backend\apps\models\revenue.js                 | JavaScript |         49 |          0 |          9 |         58 |
+| d:\Learn\20232_DATN\Code\Backend\apps\models\shoe.js                    | JavaScript |         68 |          0 |         13 |         81 |
+| d:\Learn\20232_DATN\Code\Backend\apps\models\user.js                    | JavaScript |         58 |          0 |          7 |         65 |
+| d:\Learn\20232_DATN\Code\Backend\apps\repository\database.js            | JavaScript |         58 |          6 |          4 |         68 |
+| d:\Learn\20232_DATN\Code\Backend\apps\routes\adminRoute.js              | JavaScript |         27 |          0 |          2 |         29 |
+| d:\Learn\20232_DATN\Code\Backend\apps\routes\authRoute.js               | JavaScript |          8 |          0 |          2 |         10 |
+| d:\Learn\20232_DATN\Code\Backend\apps\routes\brandRoute.js              | JavaScript |          5 |          0 |          2 |          7 |
+| d:\Learn\20232_DATN\Code\Backend\apps\routes\cartRoute.js               | JavaScript |         10 |          0 |          2 |         12 |
+| d:\Learn\20232_DATN\Code\Backend\apps\routes\cateRoute.js               | JavaScript |          5 |          0 |          2 |          7 |
+| d:\Learn\20232_DATN\Code\Backend\apps\routes\home.js                    | JavaScript |          5 |          0 |          2 |          7 |
+| d:\Learn\20232_DATN\Code\Backend\apps\routes\index.js                   | JavaScript |         12 |          0 |          2 |         14 |
+| d:\Learn\20232_DATN\Code\Backend\apps\routes\orderRoute.js              | JavaScript |         10 |          0 |          2 |         12 |
+| d:\Learn\20232_DATN\Code\Backend\apps\routes\shoeRoute.js               | JavaScript |          5 |          0 |          1 |          6 |
+| d:\Learn\20232_DATN\Code\Backend\apps\routes\userRoute.js               | JavaScript |          8 |          0 |          2 |         10 |
+| d:\Learn\20232_DATN\Code\Backend\apps\services\authService.js           | JavaScript |         40 |          0 |          3 |         43 |
+| d:\Learn\20232_DATN\Code\Backend\apps\services\brandService.js          | JavaScript |         23 |          0 |          3 |         26 |
+| d:\Learn\20232_DATN\Code\Backend\apps\services\cartService.js           | JavaScript |        164 |          0 |         17 |        181 |
+| d:\Learn\20232_DATN\Code\Backend\apps\services\categoryService.js       | JavaScript |         47 |          0 |          6 |         53 |
+| d:\Learn\20232_DATN\Code\Backend\apps\services\orderService.js          | JavaScript |        211 |          0 |         19 |        230 |
+| d:\Learn\20232_DATN\Code\Backend\apps\services\revenueService.js        | JavaScript |        106 |          0 |         18 |        124 |
+| d:\Learn\20232_DATN\Code\Backend\apps\services\shoeService.js           | JavaScript |        169 |          2 |         15 |        186 |
+| d:\Learn\20232_DATN\Code\Backend\apps\services\userService.js           | JavaScript |         39 |          0 |          5 |         44 |
+| d:\Learn\20232_DATN\Code\Backend\apps\utils\database.js                 | JavaScript |         58 |          6 |          4 |         68 |
+| d:\Learn\20232_DATN\Code\Backend\apps\utils\hashPassword.js             | JavaScript |         10 |          0 |          2 |         12 |
+| d:\Learn\20232_DATN\Code\Backend\apps\utils\jwt.js                      | JavaScript |         37 |          0 |          5 |         42 |
+| d:\Learn\20232_DATN\Code\Backend\apps\utils\stringUtil.js               | JavaScript |         21 |          0 |          5 |         26 |
+| Total                                                                   |            |      2,070 |         16 |        257 |      2,343 |
++-------------------------------------------------------------------------+------------+------------+------------+------------+------------+

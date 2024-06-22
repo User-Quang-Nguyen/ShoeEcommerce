@@ -1,0 +1,17 @@
+.information-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.information-paper {
+    padding: 16px;
+    text-align: center;
+    /* border-radius: 8px; */
+}
+
+.information-title {
+    margin-bottom: 8px;
+    color: #555;
+}

@@ -11,6 +11,7 @@ import Information from '../information';
 import { getTotalMoney } from 'src/api/order';
 import { order } from 'src/api/order';
 import { getUserInfor } from 'src/api/account';
+import '../cartview.css';
 
 export default function CartView() {
   const [data, setData] = useState([]);
@@ -136,13 +137,13 @@ export default function CartView() {
     if (response.data.status === true) {
       alert('Đặt hàng thành công');
       setOpen(open + 1);
-    }else{
+    } else {
       alert("Đặt hàng khong thanh cong");
     }
   };
 
   return (
-    <Container>
+    <Container className="cart-view-container">
       <Stack direction="row" alignItems="center" justifyContent="space-between" mb={5}>
         <Typography variant="h4">Giỏ hàng</Typography>
       </Stack>
@@ -160,18 +161,17 @@ export default function CartView() {
         </Stack>
       )}
 
-      <Stack>
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
-          <div style={{ display: 'flex', flexDirection: 'column', flex: 1 }}>
-            <p>Giao hàng đến: {address}</p>
-            <a href="/profile">Thay đổi</a>
+      <Stack className="cart-summary">
+        <div className="cart-address">
+          <Typography variant="h6">Giao hàng đến:</Typography>
+          <Typography variant="body1">{address}</Typography>
+          <a href="/profile" className="change-address">Thay đổi</a>
+        </div>
+        <div className="cart-total">
+          <div className="total-information">
+            {total > 0 && <Information total={total} />}
           </div>
-          <div style={{ display: 'flex', flexDirection: 'column', flex: 1, alignItems: 'center' }}>
-            <div style={{ marginBottom: '10px' }}>
-              {total > 0 && <Information total={total} />}
-            </div>
-            <OrderButton handlerOrder={handlerOrder}/>
-          </div>
+          <OrderButton handlerOrder={handlerOrder} />
         </div>
       </Stack>
     </Container>

@@ -92,6 +92,7 @@ async function getAllOrder(req, res) {
             }
             const result = {
                 ...order,
+                address: user[0]?.address,
                 name: user[0]?.name,
             }
             const details = await Promise.all(items.map(async (item) => {
