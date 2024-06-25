@@ -12,7 +12,7 @@ async function login(formData, callback) {
     try {
         User.findOne(formData.email, async (err, user) => {
             if (err) {
-                return callback(err);
+                return callback(new Error("Người dùng không tồn tại"));
             }
             if (!user) {
                 return callback(new Error("Người dùng không tồn tại"));
@@ -33,6 +33,7 @@ async function login(formData, callback) {
             }
         });
     } catch (err) {
+        console.log(err);
         callback(err);
     }
 }

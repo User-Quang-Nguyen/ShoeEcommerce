@@ -52,11 +52,11 @@ const updateShoe = (req, res, next) => {
 
 const updateStateOrder = (req, res, next) => {
     const formData = req.body;
-    // 1 oke, 2 cancel
+    // 1 hủy, 2 thành công, 3 payment
     if (!formData.hasOwnProperty('status') || !formData.hasOwnProperty('id')) {
         return res.status(400).json({ message: "Trường không hợp lệ", state: false });
     }
-    if (formData.status == 1 || formData.status == 2) {
+    if (formData.status == 1 || formData.status == 2 || formData.status == 3) {
         next();
     } else {
         return res.status(400).json({ message: "Trạng thái không hợp lệ", state: false });

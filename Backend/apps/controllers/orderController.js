@@ -40,7 +40,7 @@ async function updateStateOrder(req, res) {
         const user = await OrderService.getOrderById(id);
         const realUser = user[0].userid;
         if (realUser != userid) {
-            return res.status(403).json({ message: "Xác thực thất bị", state: false });
+            return res.status(403).json({ message: "Xác thực thất baị", state: false });
         }
 
         const result = await OrderService.updateStateOrder(id, status);

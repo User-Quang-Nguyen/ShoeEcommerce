@@ -1,18 +1,67 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Table, Tag, Dropdown, Menu, Modal, Button } from 'antd';
 import DetailTable from "./detail-table";
 import { updateStatus } from 'src/api/order';
+import { payment, checkPayment } from 'src/api/payment';
 
 export default function OrderTable({ data }) {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [selectedRecord, setSelectedRecord] = useState(null);
   const [hoveredRecord, setHoveredRecord] = useState(null);
   const [newStatus, setNewStatus] = useState(null);
+  const [count, setCount] = useState(0);
 
-  const handleMenuClick = (e) => {
-    setNewStatus(parseInt(e.key));
-    setIsModalVisible(true);
+  useEffect(() => {
+    data.map(async (item) => {
+      if (item.status == 0 && item.apptransid != null) {
+        const result = await checkPayment(item.apptransid);
+        if(result.data.return_code == 1){
+          const formData = {
+            id: item.key,
+            status: 3
+          }
+          await updateStatus(formData);
+        }
+      }
+    });
+  },[data])
+
+  const handleMenuClick = async (e) => {
+    if(parseInt(e.key) === 1){
+      setNewStatus(parseInt(e.key));
+      setIsModalVisible(true);
+    }else{
+      await handlePayment();
+      return;
+    }
   };
+
+  const handleStatusUpdate = async (record, newStatus) => {
+    const formData = {
+      id: record.key,
+      status: newStatus,
+    };
+    hoveredRecord.status = newStatus;
+    await updateStatus(formData);
+    setIsModalVisible(false);
+    setSelectedRecord(null);
+    setHoveredRecord(null);
+    setNewStatus(null);
+  };
+
+  const handlePayment = async () => {
+    const number = Math.floor(Math.random() * (100000 - 1000 + 1));
+    const formData = {
+      "orderid": hoveredRecord.key,
+      "transID": number,
+    }
+    const result = await payment(formData);
+    if(result.data.return_code == 1){
+      const paymentUrl = result.data.order_url;
+      console.log(paymentUrl);
+      window.location.href = paymentUrl;
+    }
+  }
 
   const handleOk = async () => {
     if (hoveredRecord && newStatus !== null) {
@@ -38,7 +87,7 @@ export default function OrderTable({ data }) {
 
   const menuItems = [
     {
-      label: 'Đã nhận được hàng',
+      label: 'Thanh toán',
       key: '2',
     },
     {
@@ -84,6 +133,10 @@ export default function OrderTable({ data }) {
             color = 'green';
             text = 'Thành công';
             break;
+          case 3:
+            color = 'yellow';
+            text = 'Đã thanh toán';
+            break;
           default:
             color = 'gray';
             text = 'Unknown';
@@ -112,11 +165,22 @@ export default function OrderTable({ data }) {
                 onMouseEnter={() => {
                   setHoveredRecord(record)
                 }}
-                // onMouseLeave={() => setHoveredRecord(null)}
               >
                 Cập nhật
               </a>
             </Dropdown>
+          );
+        }
+        if(record.status === 3){
+          return (
+              <a
+              onMouseEnter={() => {
+                setHoveredRecord(record)
+              }}
+                onClick={() => handleStatusUpdate(record, 2)}
+              >
+                Đã nhận hàng
+              </a>
           );
         }
         return null;
@@ -142,7 +206,7 @@ export default function OrderTable({ data }) {
         onOk={handleOk}
         onCancel={handleCancel}
       >
-        <p>Bạn có chắc muốn cập nhật trạng thái đơn hàng này?</p>
+        <p>Bạn có chắc muốn hủy đơn hàng này?</p>
       </Modal>
     </>
   );

@@ -35,6 +35,7 @@ const validateLoginInput = (req, res, next) => {
             return res.status(400).json({ message: 'Email không hợp lệ', state: false })
         }
         if (password.length < 8) {
+            console.log(password);
             return res.status(400).json({ message: 'Mật khẩu lớn hơn 8 chữ số', state: false })
         }
         if (utils.isWhitespaceOrEmpty(email) || utils.isWhitespaceOrEmpty(password)) {

@@ -140,6 +140,7 @@ async function getListItemOrder(userid) {
                 status: order.status,
                 items: items,
                 total: order.total,
+                apptransid: order.apptransid,
                 createdat: order.createdat
             };
 
@@ -182,8 +183,8 @@ function updateState(orderid, status) {
 
 async function updateStateOrder(orderid, status) {
     const order = await getOrderById(orderid);
-    if (order[0].status == 0) {
-        if (status == 2) {
+    if (order[0].status == 0 || order[0].status == 3) {
+        if (status == 2 || status == 3) {
             const result = await updateState(orderid, status);
             return result;
         } else if (status == 1) {
@@ -219,6 +220,15 @@ function getAllOrder() {
     })
 }
 
+function setAppTransId(orderid, transid) {
+    return new Promise((resolve, reject) => {
+        Order.setAppTransId(orderid, transid, (err, result) => {
+            if (err) reject(err);
+            resolve(result);
+        })
+    })
+}
+
 module.exports = {
     calculate,
     order,
@@ -226,5 +236,6 @@ module.exports = {
     updateStateOrder,
     getOrderById,
     getAllOrder,
-    getOrderDetailById
+    getOrderDetailById,
+    setAppTransId
 }

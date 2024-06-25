@@ -7,7 +7,7 @@ export default function DetailTable({data}) {
     <Table dataSource={data} pagination={false}>
       <Column title="Tên" dataIndex="name" key="name"/>
       <Column title="Hình ảnh" dataIndex="image" key="image"  render={(text, record) => (
-          <img src={text} alt={record.name} style={{ width: 100, height: 'auto' }} />
+          <img src="/assets/images/products/product_1.jpg" alt={record.name} style={{ width: 100, height: 'auto' }} />
         )}/>
       <Column title="Màu" dataIndex="color" key="color"/>
       <Column title="Kích cỡ" dataIndex="size" key="size"/>

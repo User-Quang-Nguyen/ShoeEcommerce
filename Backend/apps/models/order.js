@@ -42,6 +42,12 @@ const Order = {
     getAllOrder: (callback) => {
         const query = `SELECT * FROM "order"`;
         databaseUtils.select_uti(conn, callback, query);
+    },
+
+    setAppTransId: (orderid, transid, callback) => {
+        const query = `UPDATE "order" SET "apptransid" = $1 WHERE "id" = $2`;
+        const values = [transid, orderid];
+        databaseUtils.update_uti(conn, callback, query, values);
     }
 }
 

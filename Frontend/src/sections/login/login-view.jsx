@@ -85,6 +85,8 @@ export default function LoginView() {
     }
 
     }catch(err){
+      setLoginError(true);
+      setMessage(result.data.message);
       console.log(err);
     }
   };

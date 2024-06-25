@@ -38,7 +38,7 @@ export default function AdminOrderTable({ data }) {
 
   const menuItems = [
     {
-      label: 'Đã nhận được hàng',
+      label: 'Đã giao hàng',
       key: '2',
     },
     {
@@ -82,7 +82,11 @@ export default function AdminOrderTable({ data }) {
             break;
           case 2:
             color = 'green';
-            text = 'Thành công';
+            text = 'Đã giao hàng';
+            break;
+          case 3:
+            color = 'yellow';
+            text = 'Đã thanh toán';
             break;
           default:
             color = 'gray';

@@ -10,5 +10,6 @@ router.use("/order", require("./orderRoute"));
 router.use("/admin", require("./adminRoute"));
 router.use("/brand", require("./brandRoute"));
 router.use("/category", require("./cateRoute"));
+router.use("/payment", require("./payment"));
 
 module.exports = router;

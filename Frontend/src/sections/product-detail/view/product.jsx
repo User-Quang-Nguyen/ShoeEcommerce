@@ -97,7 +97,11 @@ export default function ProductDetail() {
   };
 
   const handleQuantityChange = (event) => {
-    setQuantity(event.target.value);
+    if (event.target.value > 0) {
+      setQuantity(event.target.value);
+    }else{
+      alert("Quantity must be greater than 0");
+    }
   };
 
   const Item = styled(Paper)(({theme}) => ({
@@ -160,9 +164,6 @@ export default function ProductDetail() {
               Giá: {infor
                 ?.price} $
             </Item>
-          </Grid>
-          <Grid item xs={12} sm={6}>
-            <Item>Vận chuyển tới: Hoằng Trạch, Hoằng Hóa, Thanh Hóa</Item>
           </Grid>
           <Grid item xs={12} sm={6}>
             <Item>{infor && (
