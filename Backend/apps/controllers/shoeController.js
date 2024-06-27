@@ -1,4 +1,5 @@
 const ShoeService = require("../services/shoeService");
+const DeleteService = require("../services/deleteService");
 
 async function getItems(req, res) {
     try {
@@ -56,7 +57,7 @@ async function updateShoe(req, res) {
 async function deleteShoe(req, res) {
     try {
         const id = req.query.id;
-        await ShoeService.deleteShoe(id);
+        await DeleteService.deleteShoe(id);
         return res.status(200).json({ message: "Xóa thành công", state: true })
     } catch (err) {
         console.log(err);
@@ -94,6 +95,25 @@ async function insertShoeDetail(req, res) {
     }
 }
 
+async function fullTextSearch(req, res) {
+    try {
+        const key = req.query.key;
+        const page = parseInt(req.query.page, 10) || 1;
+        const limit = parseInt(req.query.limit, 10) || 10;
+
+        const [result, totalResults] = await Promise.all([
+            ShoeService.fullTextSearch(key, page, limit),
+            ShoeService.countSearchResults(key)
+        ]);
+
+        const totalPages = Math.ceil(totalResults[0].count / limit);
+
+        return res.status(200).json(result);
+    } catch (error) {
+        return res.status(500).json({ message: error.message });
+    }
+}
+
 module.exports = {
     getItems,
     getItemById,
@@ -103,4 +123,5 @@ module.exports = {
     getAllItemsDetail,
     updateShoeDetail,
     insertShoeDetail,
+    fullTextSearch,
 }

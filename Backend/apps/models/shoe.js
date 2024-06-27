@@ -4,13 +4,13 @@ const databaseUtils = require("../utils/database")
 
 const Shoe = {
     getItems: (start, end, callback) => {
-        const query = `SELECT * FROM "shoe" WHERE "id" BETWEEN $1 and $2`;
+        const query = `SELECT * FROM "shoe" WHERE "id" BETWEEN $1 and $2 AND "isdeleted" = false;`;
         const values = [start, end];
         databaseUtils.select_uti(conn, callback, query, values);
     },
 
     getItemById: (id, callback) => {
-        const query = `SELECT * FROM "shoe" WHERE "id" = $1`;
+        const query = `SELECT * FROM "shoe" WHERE "id" = $1;`;
         const values = [id];
         databaseUtils.select_uti(conn, callback, query, values);
     },
@@ -48,9 +48,9 @@ const Shoe = {
     },
 
     deleteShoe: (id, callback) => {
-        const query = `DELETE FROM "shoe" WHERE "id" = $1`;
+        const query = `UPDATE "shoe" SET "isdeleted" = true WHERE "id" = $1;`;
         const values = [id];
-        databaseUtils.delete_uti(conn, callback, query, values);
+        databaseUtils.update_uti(conn, callback, query, values);
     },
 
     getAllItems: (callback) => {
@@ -71,8 +71,23 @@ const Shoe = {
         databaseUtils.insert_uti(conn, callback, query, values);
     },
 
-    fullTextSearch: (key, callback) => {
-        const query = `SELECT * FROM shoe WHERE to_tsvector('english', name || ' ' || description) @@ to_tsquery($1);`;
+    fullTextSearch: (key, page, limit, callback) => {
+        const offset = (page - 1) * limit;
+        const query = `
+            SELECT * FROM shoe 
+            WHERE to_tsvector('english', name || ' ' || description) @@ to_tsquery($1) 
+            AND isdeleted = false
+            LIMIT $2 OFFSET $3;
+        `;
+        const values = [key, limit, offset];
+        databaseUtils.select_uti(conn, callback, query, values);
+    },
+    countSearchResults: (key, callback) => {
+        const query = `
+            SELECT COUNT(*) FROM shoe 
+            WHERE to_tsvector('english', name || ' ' || description) @@ to_tsquery($1)
+            AND isdeleted = false;
+        `;
         const values = [key];
         databaseUtils.select_uti(conn, callback, query, values);
     }

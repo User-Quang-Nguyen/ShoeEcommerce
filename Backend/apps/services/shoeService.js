@@ -1,6 +1,6 @@
-const Shoe = require("../models/shoe")
-const BrandService = require("../services/brandService")
-const CategoryService = require("../services/categoryService")
+const Shoe = require("../models/shoe");
+const BrandService = require("../services/brandService");
+const CategoryService = require("../services/categoryService");
 
 function getItemsAsync(startIndex, endIndex) {
     return new Promise((resolve, reject) => {
@@ -65,6 +65,7 @@ async function getAllItems() {
 async function getAllItemsDetail() {
     try {
         const shoes = await getAllItems();
+        console.log(shoes);
         const idList = shoes.map(shoe => shoe.id);
         const items = await Promise.all(idList.map(async (id) => {
             const detail = await getItemById(id);
@@ -78,7 +79,6 @@ async function getAllItemsDetail() {
 async function getItemById(id) {
     try {
         const shoe = await getItemAsync(id);
-        // console.log(shoe);
         const brandName = await getNameAsync(shoe[0].brandid);
         const category = await CategoryService.getCategoryName(id);
         const detail = await getItemDetail(id);
@@ -115,15 +115,6 @@ async function getItemDetailById(id) {
 async function updateShoe(formData) {
     return new Promise((resolve, reject) => {
         Shoe.updateShoe(formData, (err, result) => {
-            if (err) reject(err);
-            resolve(result);
-        })
-    })
-}
-
-async function deleteShoe(id) {
-    return new Promise((resolve, reject) => {
-        Shoe.deleteShoe(id, (err, result) => {
             if (err) reject(err);
             resolve(result);
         })
@@ -173,14 +164,34 @@ async function insertShoeDetail(formData) {
     })
 }
 
+async function fullTextSearch(key, page, limit) {
+    return await new Promise((resolve, reject) => {
+        Shoe.fullTextSearch(key, page, limit, (err, result) => {
+            if (err) reject(err);
+            resolve(result);
+        });
+    });
+}
+
+async function countSearchResults(key) {
+    return await new Promise((resolve, reject) => {
+        Shoe.countSearchResults(key, (err, result) => {
+            if (err) reject(err);
+            resolve(result);
+        });
+    });
+}
+
 module.exports = {
     getItems,
     getItemById,
+    getItemDetail,
     getItemDetailById,
     updateShoe,
-    deleteShoe,
     getAllItemsDetail,
     updateShoeDetail,
     insertFullShoe,
     insertShoeDetail,
+    fullTextSearch,
+    countSearchResults
 }

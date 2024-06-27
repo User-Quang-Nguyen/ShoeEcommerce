@@ -25,6 +25,7 @@ async function getCartData(userid) {
         if (cart.length === 0) return { items: [] };
         const cartshoe = await getCartItemByUser(cart[0].id);
         const shoes = await Promise.all(cartshoe.map(async (shoe, index) => {
+            console.log(shoe);
             const shoedetail = await ShoeService.getItemDetailById(shoe.shoeid);
             const shoe1 = await ShoeService.getItemById(shoedetail.shoeid);
             const shoe1Copy = { ...shoe1[0] };
@@ -167,6 +168,15 @@ function deleteCartItem(id) {
     })
 }
 
+async function deleteCartByShoeid(shoeid) {
+    return new Promise((resolve, reject) => {
+        Cart.deleteCartByShoeid(shoeid, (err, result) => {
+            if (err) reject(err);
+            resolve(result);
+        })
+    })
+}
+
 module.exports = {
     getCartData,
     getCartByUser,
@@ -177,5 +187,6 @@ module.exports = {
     deleteToCartshoe,
     deleteCartItem,
     getCartshoeById,
-    getCartById
+    getCartById,
+    deleteCartByShoeid,
 }
