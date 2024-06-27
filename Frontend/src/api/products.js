@@ -92,3 +92,28 @@ export async function changeShoe(formData) {
         return err.response;
     }
 }
+
+export async function deleteShoe(shoeid) {
+    const token = getAuthToken();
+    try {
+        const response = await axios.delete(`${API_URL}/admin/shoe?id=${shoeid}`, {
+            headers: {
+                Authorization: token,
+            },
+        });
+        return response;
+    } catch (err) {
+        return err.response;
+    }
+}
+
+export async function searchShoe(query, page, limit){
+    try {
+        const response = await axios.get(`${API_URL}/shoe`,{
+            params: { key: query, page, limit }
+        });
+        return response;
+    } catch (error) {
+        return error.response;
+    }
+}

@@ -1,16 +1,17 @@
 import React, { useState } from 'react';
-import { Table, Form, Input, Modal, Space, Button, InputNumber, Upload } from 'antd';
+import { Table, Form, Input, Modal, Space, Button, InputNumber, Upload, Tag } from 'antd';
 import DetailTable from "./detail-table";
 import IconButton from '@mui/material/IconButton';
 import Iconify from 'src/components/iconify';
 
-import { addShoeDetail, updateShoeDetail, changeShoe } from 'src/api/products';
+import { addShoeDetail, updateShoeDetail, changeShoe, deleteShoe } from 'src/api/products';
 
 // ----------------------------------------------------------------------------------
 
 export default function Management({ data, count, setCount }) {
   const [isAddModalVisible, setIsAddModalVisible] = useState(false);
   const [isEditModalVisible, setIsEditModalVisible] = useState(false);
+  const [isDeleteModalVisible, setIsDeleteModalVisible] = useState(false);
   const [shoeid, setShoeid] = useState(0);
   const [formAdd] = Form.useForm();
   const [formEdit] = Form.useForm();
@@ -19,6 +20,17 @@ export default function Management({ data, count, setCount }) {
     setIsAddModalVisible(true);
     setShoeid(record.key);
     formAdd.resetFields();
+  };
+
+  const handleDeleteShoe = async () => {
+    await deleteShoe(shoeid);
+    setCount(count + 1);
+    setIsDeleteModalVisible(false);
+  }
+
+  const showDeleteConfirm = (record) => {
+    setShoeid(record.key);
+    setIsDeleteModalVisible(true);
   };
 
   const handleEditShoe = (record) => {
@@ -46,6 +58,7 @@ export default function Management({ data, count, setCount }) {
   const handleCancel = () => {
     setIsAddModalVisible(false);
     setIsEditModalVisible(false);
+    setIsDeleteModalVisible(false);
     formAdd.resetFields();
     formEdit.resetFields();
   };
@@ -94,12 +107,41 @@ export default function Management({ data, count, setCount }) {
       key: 'category',
     },
     {
+      title: 'Trạng thái',
+      key: 'isdeleted',
+      dataIndex: 'isdeleted',
+      render: (tag) => {
+        let color;
+        let text;
+
+        switch (tag) {
+          case true:
+            color = 'red';
+            text = 'Đã xóa';
+            break;
+          case false:
+            color = 'green';
+            text = 'Hiển thị';
+            break;
+          default:
+            color = 'gray';
+            text = 'Unknown';
+        }
+
+        return (
+          <Tag color={color} key={tag}>
+            {text}
+          </Tag>
+        );
+      },
+    },
+    {
       title: 'Hành động',
       dataIndex: '',
       key: 'x',
       render: (text, record) => (
         <Space>
-          <IconButton>
+          <IconButton onClick={() => showDeleteConfirm(record)}>
             <Iconify icon="material-symbols:delete" />
           </IconButton>
           <IconButton onClick={() => handleEditShoe(record)}>
@@ -193,6 +235,14 @@ export default function Management({ data, count, setCount }) {
             </Button>
           </Form.Item>
         </Form>
+      </Modal>
+      <Modal
+        title="Xác nhận xóa"
+        visible={isDeleteModalVisible}
+        onOk={handleDeleteShoe}
+        onCancel={handleCancel}
+      >
+        <p>Bạn có chắc chắn muốn xóa sản phẩm này?</p>
       </Modal>
     </>
   );

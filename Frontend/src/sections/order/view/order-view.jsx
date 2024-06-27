@@ -15,6 +15,7 @@ export default function OrderView() {
   const role = account.role;
   const [data,
     setData] = useState([]);
+  const [count, setCount] = useState(0);
 
   useEffect(() => {
     const fetchdata = async() => {
@@ -35,7 +36,7 @@ export default function OrderView() {
       setData(modifiedData);
     };
     fetchdata();
-  }, []);
+  }, [count]);
 
   return (
     <Container>
@@ -48,7 +49,7 @@ export default function OrderView() {
       </Stack>
       {
         role == 0 ? <Stack>
-                      <OrderTable data={data}/>
+                      <OrderTable data={data} count={count} setCount={setCount}/>
                     </Stack> 
                   : 
                     <Stack>

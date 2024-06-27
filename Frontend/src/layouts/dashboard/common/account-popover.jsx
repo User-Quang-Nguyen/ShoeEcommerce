@@ -26,6 +26,11 @@ const MENU_OPTIONS = [
     icon: 'eva:person-fill',
     path: '/profile',
   },
+  {
+    label: 'Đăng nhập',
+    icon: 'eva:person-fill',
+    path: '/login',
+  },
 ];
 
 // ----------------------------------------------------------------------
@@ -50,6 +55,7 @@ export default function AccountPopover() {
   };
 
   const handleClose = () => {
+    
     setOpen(null);
   };
   

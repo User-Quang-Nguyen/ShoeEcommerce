@@ -4,12 +4,11 @@ import DetailTable from "./detail-table";
 import { updateStatus } from 'src/api/order';
 import { payment, checkPayment } from 'src/api/payment';
 
-export default function OrderTable({ data }) {
+export default function OrderTable({ data, count, setCount }) {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [selectedRecord, setSelectedRecord] = useState(null);
   const [hoveredRecord, setHoveredRecord] = useState(null);
   const [newStatus, setNewStatus] = useState(null);
-  const [count, setCount] = useState(0);
 
   useEffect(() => {
     data.map(async (item) => {
@@ -21,6 +20,7 @@ export default function OrderTable({ data }) {
             status: 3
           }
           await updateStatus(formData);
+          setCount(count + 1);
         }
       }
     });
