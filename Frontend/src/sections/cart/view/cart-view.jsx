@@ -1,17 +1,15 @@
 import React, { useEffect, useState } from 'react';
-
 import Stack from '@mui/material/Stack';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 import CartTable from '../cart-table';
-
 import { deleteItem, getCartItems, updateQuantity } from 'src/api/cart';
 import OrderButton from '../order-button';
 import Information from '../information';
-import { getTotalMoney } from 'src/api/order';
-import { order } from 'src/api/order';
+import { getTotalMoney, order } from 'src/api/order';
 import { getUserInfor } from 'src/api/account';
 import '../cartview.css';
+import AutohideNoti from 'src/components/notification/autohide';
 
 export default function CartView() {
   const [data, setData] = useState([]);
@@ -21,6 +19,8 @@ export default function CartView() {
   const [count, setCount] = useState(0);
   const [total, setTotal] = useState(0);
   const [open, setOpen] = useState(0);
+  const [snackbarMessage, setSnackbarMessage] = useState('');
+  const [snackbarOpen, setSnackbarOpen] = useState(false);
 
   const fetchTotalMoney = async () => {
     try {
@@ -133,13 +133,22 @@ export default function CartView() {
   };
 
   const handlerOrder = async () => {
-    const response = await order();
-    if (response.data.status === true) {
-      alert('Đặt hàng thành công');
-      setOpen(open + 1);
-    } else {
-      alert("Đặt hàng khong thanh cong");
+    try {
+      const response = await order();
+      setSnackbarMessage(response.data.message);
+      setSnackbarOpen(true);
+      if (response.data.status === true) {
+        setOpen(open + 1);
+      }
+    } catch (error) {
+      console.error('Failed to place order:', error);
+      setSnackbarMessage('Đặt hàng không thành công');
+      setSnackbarOpen(true);
     }
+  };
+
+  const handleCloseSnackbar = () => {
+    setSnackbarOpen(false);
   };
 
   return (
@@ -174,6 +183,7 @@ export default function CartView() {
           <OrderButton handlerOrder={handlerOrder} />
         </div>
       </Stack>
+      <AutohideNoti message={snackbarMessage} open={snackbarOpen} onClose={handleCloseSnackbar} />
     </Container>
   );
 }

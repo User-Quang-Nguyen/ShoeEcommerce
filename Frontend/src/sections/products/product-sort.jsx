@@ -1,14 +1,10 @@
 import { useState } from 'react';
-
 import Menu from '@mui/material/Menu';
 import Button from '@mui/material/Button';
 import MenuItem from '@mui/material/MenuItem';
 import { listClasses } from '@mui/material/List';
 import Typography from '@mui/material/Typography';
-
 import Iconify from 'src/components/iconify';
-
-// ----------------------------------------------------------------------
 
 const SORT_OPTIONS = [
   { value: 'random', label: 'Tự do' },
@@ -17,7 +13,7 @@ const SORT_OPTIONS = [
   { value: 'price2', label: 'Giá thấp đến cao' },
 ];
 
-export default function ShopProductSort() {
+export default function ShopProductSort({ onSortChange }) {
   const [open, setOpen] = useState(null);
   const [selectedOption, setSelectedOption] = useState(SORT_OPTIONS[0]);
 
@@ -30,8 +26,9 @@ export default function ShopProductSort() {
   };
 
   const handleMenuItemClick = (option) => {
-    setSelectedOption(option); // Cập nhật tùy chọn được chọn
+    setSelectedOption(option);
     setOpen(null);
+    onSortChange(option.value);
   };
 
   return (
@@ -68,7 +65,7 @@ export default function ShopProductSort() {
           <MenuItem
             key={option.value}
             selected={option.value === selectedOption.value}
-            onClick={() => handleMenuItemClick(option)} // Cập nhật khi người dùng chọn một tùy chọn
+            onClick={() => handleMenuItemClick(option)}
           >
             {option.label}
           </MenuItem>

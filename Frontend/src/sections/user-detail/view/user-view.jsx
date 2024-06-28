@@ -3,6 +3,7 @@ import React, {useState, useEffect} from "react";
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 import Stack from '@mui/material/Stack';
+import AutohideNoti from "src/components/notification/autohide";
 import {
   Row,
   Col,
@@ -35,6 +36,7 @@ export default function UserView() {
   const [gender,
     setGender] = useState('');
   const [change, setChange] = useState(false);
+  const [snackbar, setSnackbar] = useState({ open: false, message: '' });
 
   useEffect(() => {
     const fetchdata = async() => {
@@ -80,14 +82,18 @@ export default function UserView() {
       }
       const result = await updateInfor(formData);
       setChange(!change);
-      if (result.data.status === true) {
-        alert("Update successfully");
+      if (result.data.status) {
+        setSnackbar({ open: true, message: "Cập nhật thành công" });
       } else {
-        alert("Update failed");
+        setSnackbar({ open: true, message: "Cập nhật thất bại" });
       }
     }
     setIsEditing(!isEditing);
   }
+
+  const handleCloseSnackbar = () => {
+    setSnackbar({ ...snackbar, open: false });
+  };
 
   return (
     <Container>
@@ -181,7 +187,6 @@ export default function UserView() {
                     )
                     : (
                       <span>
-                        {/* {gender === 0 ? "Male" : gender === 1 ? "Female" : "Other"} */}
                         {gender}
                       </span>
                     )}
@@ -191,6 +196,14 @@ export default function UserView() {
           </Row>
         </Card>
       </Stack>
+
+      <AutohideNoti
+        open={snackbar.open}
+        autoHideDuration={3000}
+        onClose={handleCloseSnackbar}
+        message={snackbar.message}
+      />
+
     </Container>
   );
 }
