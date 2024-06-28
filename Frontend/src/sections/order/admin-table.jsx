@@ -47,6 +47,13 @@ export default function AdminOrderTable({ data }) {
     },
   ];
 
+  const menuItem = [
+    {
+      label: 'Đã giao hàng',
+      key: '2',
+    }
+  ];
+
   const columns = [
     {
       title: "ID",
@@ -118,7 +125,7 @@ export default function AdminOrderTable({ data }) {
         if (record.status === 0) {
           const menu = (
             <Menu onClick={handleMenuClick} items={menuItems} />
-          );
+          )
 
           return (
             <Dropdown overlay={menu} trigger={['click']}>
@@ -126,7 +133,23 @@ export default function AdminOrderTable({ data }) {
                 onMouseEnter={() => {
                   setHoveredRecord(record)
                 }}
-                // onMouseLeave={() => setHoveredRecord(null)}
+              >
+                Cập nhật
+              </a>
+            </Dropdown>
+          );
+        }
+        if (record.status === 3) {
+          const menu = (
+            <Menu onClick={handleMenuClick} items= {menuItem} />
+          )
+
+          return (
+            <Dropdown overlay={menu} trigger={['click']}>
+              <a
+                onMouseEnter={() => {
+                  setHoveredRecord(record)
+                }}
               >
                 Cập nhật
               </a>
